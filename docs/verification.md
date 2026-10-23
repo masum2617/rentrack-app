@@ -1,6 +1,6 @@
 # Verification by risk and change
 
-There is no runnable app or test toolchain in the initial skeleton. These are future verification requirements, not existing commands or completed results. Use actual project scripts once bootstrapped.
+The app now has type checking, four focused Node tests, Expo compatibility checks and native development builds. Run the package scripts appropriate to the change. The table below describes requirements for future business workflows; it does not claim those workflows exist. Checkpoint evidence lives in the delivery log.
 
 | Change | Evidence needed |
 |---|---|

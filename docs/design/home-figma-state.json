@@ -1,7 +1,7 @@
 {
   "fileKey": "NbtxYyU5l1j2QSLTRBioUL",
   "fileUrl": "https://www.figma.com/design/NbtxYyU5l1j2QSLTRBioUL",
-  "status": "Home draft awaiting owner review; no app code",
+  "status": "Approved Home reference implemented as Step 2 native preview; see delivery log for evidence and limits",
   "pageId": "0:1",
   "reviewBoardId": "3:202",
   "componentAreaId": "3:203",
@@ -68,7 +68,7 @@
     "componentInstances": 60,
     "imageFilledNodes": 0,
     "visualPreview": "home-review.png",
-    "nativeChecksRun": false,
+    "nativeChecksRun": true,
     "centerDestination": "Home / হোম; house icon; raised 26",
     "flatPairContrast": {
       "buttonWhite": 4.98,
@@ -177,5 +177,6 @@
       "height": 48,
       "placement": "Beside heading"
     }
-  ]
+  ],
+  "implementationEvidence": "../evidence/step-2/README.md"
 }

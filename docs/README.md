@@ -39,5 +39,5 @@ Warm Ledger, Bangla default/full English support, and easy use across the stated
 - Calculation or persistence task: AGENTS → affected requirements/domain → architecture/platform guidance → relevant verification.
 - Documentation-only task: owning specification plus inbound links and affected cross-references.
 - Historical rationale: references only when current working documents do not answer the question.
-- First-screen implementation: start with the [planned Home task](work-items/home-foundation.md) and the roadmap; explain actual work in [external learning notes](../../learning-notes/README.md) and record verified delivery in the log.
+- First-screen implementation: start with the [Home task](work-items/home-foundation.md) and the roadmap; explain actual work in [external learning notes](../../learning-notes/README.md) and record verified delivery in the log.
 

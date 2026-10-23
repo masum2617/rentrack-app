@@ -1,12 +1,12 @@
 # Incremental implementation and learning roadmap
 
-Status: Step 1 complete, 23 October 2026. Expo setup and a minimal native Bangla Home were built, installed and visually checked on Android and iOS; learning documentation and verification are recorded in the delivery log. The full Home design remains Step 2: green/white surfaces, soft shadows, raised center Home / হোম, and the compact বাংলা / English radio selector beside the heading. SQLite, server work and migrations remain unstarted; Spring Boot connection is deferred.
+Status: Step 2 complete, 24 October 2026. Reviewed green/white Home, raised center Home / হোম, bilingual radio selector, demo filters and empty Home are implemented. Native builds/rendering and scoped checks are recorded in the delivery log. Next is Step 3: SQLite locale preference. Backend connection remains deferred.
 
 ## Goal and scope of the first milestone
 
 Deliver a native Home screen the owner can run and inspect, with Bangla default/full English strings, the approved visual language and native-safe layout. Teach the runtime first, then one local persistence concept, before expanding into rental workflows.
 
-Confirmed test targets: Android emulator and iOS Simulator on the owner's Mac, plus an installable Android APK on their physical Android phone. The owner reports Android Studio and Xcode are installed; SDKs, runtimes, signing/build configuration and successful launches have not been verified. Proposed first-run order: Android emulator → iOS Simulator → standalone Android phone build.
+Confirmed test targets: Android emulator and iOS Simulator on the owner's Mac, plus an installable Android APK on their physical Android phone. The owner reports Android Studio and Xcode are installed; Android/iOS development toolchains and native launches were verified in Steps 1–2; physical Android and standalone signing/bundling remain unverified. Proposed first-run order: Android emulator → iOS Simulator → standalone Android phone build.
 
 Home metrics are explicitly labeled demo data at this stage. They are not an implementation of billing, cash collection, access control or portfolio accounting. The first meaningful SQLite write is a persisted locale preference; keep money fixtures separate from real business records.
 
@@ -28,7 +28,7 @@ Home metrics are explicitly labeled demo data at this stage. They are not an imp
 | Preparation: working root/toolchains | Use mobile-app as the only coding root; compare nested copies; verify reported Android Studio/Xcode setup | Known emulator/simulator targets and untouched user files | Project versus docs versus runtime |
 | Preparation: focused Home design | Home in Bangla, English fit check, empty/demo state and large-text considerations; latest green/white and raised bottom-bar reference 6 | Reviewed Home hierarchy and sensible primary/secondary actions | Why design review precedes layout code |
 | 1. Expo boot — complete | Minimal compatible Expo/React Native/TypeScript project, preserved docs and folders, first native screen | Android emulator and iOS Simulator launch/screenshots; exact commands in README | Expo, native components, development server and fast refresh |
-| 2. Home UI | Shared minimum tokens/components, readable Home with explicit demo data, locale switching and navigation shell | Visible native Home, both languages, narrow/large-text review | Components, props, state, layout and text |
+| 2. Home UI — complete | Shared minimum tokens/components, readable Home with explicit demo data, locale switching and navigation shell | Visible native Home, both languages, narrow/large-text review | Components, props, state, layout and text |
 | 3. SQLite introduction | Minimal schema migration and preference read/write behind local-storage boundary | Choose language, restart, retain it; failure handled | Tables, queries, persistent versus temporary state |
 | 4. Installable Android preview | Generate a signed test APK with bundled JavaScript/assets; install on physical Android | Launch with Metro stopped, airplane-mode review and locale persistence after normal restart | Preview versus development build, APK versus AAB, local storage lifetime |
 | Review before expansion | User tries Home; lesson and delivery evidence updated | Questions answered and next slice chosen | Explain the code/data flow before expansion |
@@ -95,7 +95,7 @@ Read-only inspection found extra nested directories named mobile app under mobil
 
 ## Pending choices
 
-Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record the selected tooling and actual native results. Navigation/localization implementation remains a planning choice, not installed tooling. Continue one checkpoint at a time after the Step 1 learning handoff.
+Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record the selected tooling and actual native results. React Navigation and temporary locale state are installed and implemented. Continue one checkpoint at a time; the next authorized slice should introduce SQLite preferences.
 
 Official build references checked 23 October 2026: [Android APKs](https://docs.expo.dev/build-reference/apk/), [local release builds](https://docs.expo.dev/guides/local-app-production/), and [internal distribution](https://docs.expo.dev/build/internal-distribution/). These establish available workflows, not a completed build in this workspace.
 

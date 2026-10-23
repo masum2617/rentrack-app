@@ -2,7 +2,7 @@
 
 Working project for the landlord-operated Android/iOS application. Bangla is the default, English is fully supported, and everyday workflows must remain straightforward for younger adults and adults aged approximately 45–70.
 
-**Current checkpoint:** Step 1 — Expo/React Native/TypeScript bootstrap and a minimal Bangla Home screen. Native launch results are recorded in [the delivery log](docs/delivery-log.md). The full Figma layout, navigation, language switching, SQLite and backend belong to later steps.
+**Current checkpoint:** Step 2 — reviewed green/white Home, Bangla/English switching, property/month demo filters, empty Home and five-tab navigation shell. Android and iOS native builds/rendering are verified; see [delivery evidence](docs/evidence/step-2/README.md). SQLite preference persistence is next. Backend and standalone APK remain separate checkpoints.
 
 Start with [AGENTS.md](AGENTS.md), then the [documentation index](docs/README.md).
 
@@ -56,22 +56,32 @@ The future standalone Android APK is a separate checkpoint; this development app
 
 ~~~sh
 npm run typecheck
+npm test
 npm run check:dependencies
 ~~~
 
-`typecheck` checks TypeScript. `check:dependencies` compares package versions with Expo's SDK recommendations. Neither proves a native launch; see recorded device evidence in the delivery log.
+`typecheck` checks TypeScript. `test` runs four focused fixture/number-format checks with Node’s built-in runner. `check:dependencies` compares package versions with Expo's SDK recommendations. Neither proves a native launch; see recorded device evidence in the delivery log.
 
 ## First files to read
 
-Follow `index.ts` → `App.tsx` → `src/features/home/HomeScreen.tsx`. The screen imports shared colors from `src/theme/colors.ts`. Read [lesson 02 outside the app](../learning-notes/02-expo-first-run.md) for the file-by-file explanation and first editing experiment.
+Follow `index.ts` → `App.tsx` → `src/navigation/AppNavigator.tsx` → `src/features/home/HomeScreen.tsx`. [Lesson 03 outside the app](../learning-notes/03-home-layout-and-language.md) explains components, props, state and locale context using these files.
+
+## Review this checkpoint
+
+- Home starts in Bangla. Choose English beside the heading to translate the preview; property names keep their entered script.
+- Choose a property or billing month to inspect the named demo fixtures. All-month outstanding has a different scope from monthly billed/received.
+- Open More → Development preview → Empty portfolio, then Home, to inspect first-use guidance. Select Sample portfolio to return. These controls exist only in development builds.
+- Other tabs and money/property actions explain that their workflows are not built. Nothing is saved.
+- Locale, selected filters and empty-preview state are temporary React state. A full app restart returns to Bangla/sample data; SQLite persistence comes next.
+- The floating gear is Expo’s development tooling, not an app feature or part of the release UI.
 
 The starter icon assets are temporary and retain Expo's license under `assets/expo-template-LICENSE.txt`. The app's local preview package/bundle identifier is `com.houserenttracker.preview`.
 
 ## Known setup notes
 
 - Use the default `npm start` binding on this Mac. A test with `--localhost` bound only to IPv6 (`::1`), while the development app requested IPv4 (`127.0.0.1`); restarting with the default binding resolved the iOS loading error.
-- At this checkpoint, `npm audit` reports 15 high-severity dependency entries, rooted in `braces` and `node-forge` advisories and propagated through the Expo/Metro/React Native tree. Expo's compatibility check and all 20 Expo Doctor checks pass, but these are not a clean security audit. The suggested forced changes include incompatible Expo/React Native downgrades, so none were applied. Recheck supported upstream fixes before distribution.
-- Android prebuild reports that global `userInterfaceStyle` enforcement needs `expo-system-ui`. The minimal screen uses explicit light colors; full appearance behavior and the Figma fonts remain part of Step 2.
+- Latest `npm audit` reports four high-severity entries: node-forge and its Expo CLI/code-signing dependency chain (GHSA-86w9-cpqp-85rv). Expo compatibility and Doctor 20/20 pass; this is not a clean security audit. No forced incompatible downgrade was applied. Recheck supported upstream fixes before distribution.
+- Local Noto Sans/Bengali fonts and original Figma SVG icons are bundled. Their sources are recorded in [asset provenance](docs/design/home-assets.md). `expo-system-ui` now supplies Android light-appearance configuration.
 
 ## Layout
 
@@ -123,7 +133,7 @@ mobile-app/
   tests/integration/
 ~~~
 
-The accepted stack is React Native, Expo, SQLite, Spring Boot, PostgreSQL, and private file storage. This folder is the mobile client. Installed dependency versions are in `package.json` and `package-lock.json`; a native development client and safe-area handling are included. Navigation, locale state, SQLite, authentication, backend and file storage are not implemented.
+The accepted stack is React Native, Expo, SQLite, Spring Boot, PostgreSQL, and private file storage. This folder is the mobile client. Installed dependency versions are in `package.json` and `package-lock.json`; a native development client and safe-area handling are included. React Navigation and in-memory locale state are implemented. SQLite, authentication, backend and file storage are not implemented.
 
 Business modules follow rental domains, not one module per prototype frame. Empty directories reserve intended locations; create implementation layers only as a concrete feature needs them.
 

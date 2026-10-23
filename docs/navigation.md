@@ -38,3 +38,7 @@ Receipt-date range, billing month, due date, and all-month outstanding are disti
 
 Electricity lives under property → main meter, with Home and bill-review shortcuts. Reports live under More, with links from relevant summaries. The language selector is visible on Home, sign-in and near the top of More. Show বাংলা and English together as one mutually exclusive radio group, with exactly one selected language. Each option is a full labeled touch target; do not use two independent on/off switches. Bangla is the initial selection; later explicit selection persists locally.
 
+
+## Step 2 implementation
+
+One React Navigation bottom-tabs navigator starts at Home and renders a custom raised-center bar. Tapping the active Home returns its scroll view to the top. Other tabs show an explicit unavailable view with return-to-Home. More exposes sample/empty controls only under __DEV__. These are navigation scaffolding, not delivered Ledger/Property/Tenant/Settings workflows. Locale and Home filter state are preserved during ordinary tab switches. See localization-accessibility.md for the tab-label scaling compromise.

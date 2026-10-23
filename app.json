@@ -17,6 +17,10 @@
         "monochromeImage": "./assets/android-icon-monochrome.png",
         "backgroundColor": "#F3F8F1"
       }
-    }
+    },
+    "plugins": [
+      "expo-font",
+      "expo-image"
+    ]
   }
 }

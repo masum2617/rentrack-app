@@ -1,6 +1,6 @@
 # Task: first runnable Home and local preference
 
-Status: Step 1 complete — minimal app built, installed and visually verified on Android and iOS. Full Home UI, locale switching, SQLite and standalone APK remain later checkpoints.  
+Status: Step 2 complete — reviewed Home, bilingual state, navigation shell and demo/empty previews. SQLite preference and standalone APK remain later checkpoints.  
 Owner: main implementation thread for the first authorized checkpoint  
 Coordinator: main implementation thread
 
@@ -8,7 +8,7 @@ Coordinator: main implementation thread
 
 Create the first inspectable native Home, then teach one persisted SQLite preference. Follow the separate checkpoints in [the roadmap](../implementation-roadmap.md); do not execute them as a single unattended full-app build.
 
-Design checkpoint: [Home-only Figma draft](../design/home-review.md) completed with Bangla, English and empty Home states. Latest reference includes the raised center Home / হোম tab and compact inline language radio choices. The user authorized Step 1: Expo setup and a minimal Bangla Home entry, not the full design. Spring Boot connection is explicitly deferred.
+Design checkpoint: [Home-only Figma draft](../design/home-review.md) completed with Bangla, English and empty Home states. Latest reference includes the raised center Home / হোম tab and compact inline language radio choices. The user authorized Steps 1 and 2 sequentially: Expo bootstrap followed by the reviewed Home implementation. Spring Boot connection is explicitly deferred.
 
 Relevant family: [Home](../screens/home.md). Acceptance focus: A20–A22 for language/readability; A21 preference persistence at the SQLite checkpoint. A01 portfolio and A13 payment durability are not proven by a demo screen.
 
@@ -61,3 +61,11 @@ Update [delivery log](../delivery-log.md) and [external learning notes](../../..
 - Evidence: [Android](../evidence/step-1/android.png), [iOS](../evidence/step-1/ios.png), [large-text Android](../evidence/step-1/android-large-text.png), [large-text iOS](../evidence/step-1/ios-large-text.png).
 - Learning handoff: [lesson 02](../../../learning-notes/02-expo-first-run.md). Stop here before Step 2.
 
+
+### Step 2 handoff — 24 October 2026
+
+- Implemented shared theme/type/surfaces, bundled fonts/icons, typed translations, locale provider, language radio group, filter sheets and one bottom-tabs navigator.
+- Home owns small summary/attention/empty sections and named demonstration fixtures. Other domains remain unimplemented. Temporary locale/filter state is intentionally separate from future persistence.
+- `npm run typecheck`, four `npm test` checks, Expo dependency compatibility and Expo Doctor 20/20 passed. Native builds and screenshots passed; iOS interaction checks exercised language, property/month selection, unavailable action feedback and empty-state navigation.
+- Evidence and precise limits: [Step 2 verification](../evidence/step-2/README.md). Learning: [lesson 03](../../../learning-notes/03-home-layout-and-language.md).
+- Next: Step 3 SQLite locale preference, only when requested. No database-backed money, backend, standalone APK or physical phone verification in this checkpoint.

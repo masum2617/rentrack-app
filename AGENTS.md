@@ -36,5 +36,5 @@ Run the checks relevant to the actual change using [verification](docs/verificat
 
 Existing user authorization carries forward. Do not add per-screen approval gates or repeat approved direction/language questions. New work remains limited to what the user requested; commits, publication, deployment, and messages to others require their applicable authorization.
 
-Current baseline: Step 1 Expo bootstrap and a minimal Bangla Home screen. Read the README and delivery log for actual run commands and verified native results. Full Home design, navigation, localization persistence, SQLite and backend remain separate checkpoints.
+Current baseline: Step 2 reviewed Home, demo/empty states, in-memory bilingual UI and navigation shell. Read the README and delivery log for run commands and evidence. SQLite locale persistence is Step 3; backend, real financial workflows and standalone APK remain separate checkpoints.
 

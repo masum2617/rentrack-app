@@ -80,6 +80,23 @@ Purpose: a concise, evidence-based account that another agent can resume and the
 
 **Next:** user tries the lesson's text-edit experiment; Step 2 adds the reviewed Home, navigation shell and language switching when requested.
 
+
+## 24 October 2026 — Step 2 reviewed Home implemented
+
+**Scope and result:** implemented only the reviewed Home UI and shared foundations: pale green/white surfaces, soft elevation, original Figma icons, offline Noto fonts, Bangla-default/full English preview labels, compact language radio group, raised center Home, named demo fixtures, property/month selection, occupancy/attention and empty Home. Other tabs/actions truthfully explain their unavailable status. Development-only More controls switch sample/empty preview.
+
+**Code approach:** small native components and StyleSheet, props/local state, one locale context, typed message keys and one React Navigation bottom-tabs navigator. No global state framework, generic repository stack or business-domain schema was introduced. The main thread was the single writer.
+
+**Verified:** TypeScript, four focused fixture/format tests, Expo compatibility and Doctor20/20 passed. Android and iOS native builds succeeded, installed and displayed Home. iOS interactions covered translation, filtering, scope-preserving month changes, unavailable feedback and empty navigation. Bangla digit mapping fixed a native formatter difference. Narrow/enlarged Android and enlarged/scrolled iOS layouts were inspected; tab text scaling was bounded after observed crowding. Android required a cold emulator boot after System UI stalled. Final independent code review found and verified a raised-Home touch-bound fix; upper-halo tapping was confirmed on iOS. Original display/text settings were restored. See [precise evidence and limits](evidence/step-2/README.md).
+
+**Limits:** all figures are samples; locale/filters are temporary and reset after a full restart. Android interaction automation, physical phone,320-wide/landscape, screen-reader and representative older-user sessions remain unverified. Audit reports four high entries in node-forge/Expo CLI’s code-signing chain; no forced downgrade or security-clean claim. Debug apps require Metro. SQLite, real payments/property records, backend/auth/sync and standalone APK remain unimplemented.
+
+**Learning:** [lesson03 outside the coding project](../../learning-notes/03-home-layout-and-language.md) explains the actual file flow, components, props, state, language formatting and layout choices. The owner can study it later.
+
+**Presentation statement:** “The reviewed Home screen now runs on Android and iOS with bilingual navigation, accessible layout adaptations and clearly identified sample data. We have verified this UI slice; persistent storage and real rental workflows follow in separate steps.”
+
+**Next:** Step3, save the language preference using SQLite and verify normal-restart behavior. Stop at this checkpoint before expanding scope.
+
 ## Entry format for future checkpoints
 
 - Date and linked task:
