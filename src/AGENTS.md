@@ -1,0 +1,10 @@
+# Source instructions
+
+Read [app instructions](../AGENTS.md) and [architecture](../docs/architecture.md) before implementation.
+
+This tree contains a minimal HomeScreen and shared colors for Step 1; other domain directories are placeholders. Do not treat directory presence as working functionality.
+
+Feature business behavior stays inside its owning feature. Application wires dependencies; navigation registers routes; theme/i18n/shared UI provide consistent presentation; platform supplies local/remote integrations.
+
+Follow [agent workflow](../docs/agent-workflow.md) for shared paths and [verification](../docs/verification.md) for evidence. Implement only the requested slice, adding internal layers when they have concrete work to do.
+

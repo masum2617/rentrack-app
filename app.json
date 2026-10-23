@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "House Rent Tracker",
+    "slug": "house-rent-tracker",
+    "version": "0.1.0",
+    "scheme": "house-rent-tracker",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.houserenttracker.preview"
+    },
+    "android": {
+      "package": "com.houserenttracker.preview",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#F3F8F1"
+      }
+    }
+  }
+}

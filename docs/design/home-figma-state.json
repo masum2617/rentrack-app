@@ -1,0 +1,181 @@
+{
+  "fileKey": "NbtxYyU5l1j2QSLTRBioUL",
+  "fileUrl": "https://www.figma.com/design/NbtxYyU5l1j2QSLTRBioUL",
+  "status": "Home draft awaiting owner review; no app code",
+  "pageId": "0:1",
+  "reviewBoardId": "3:202",
+  "componentAreaId": "3:203",
+  "screenIds": {
+    "BN": "6:964",
+    "EN": "6:1075",
+    "Empty": "6:1184"
+  },
+  "componentIds": {
+    "metric": "6:935",
+    "attention": "6:938",
+    "nav": "6:957",
+    "raisedHome": "13:136"
+  },
+  "colors": {
+    "canvas": "VariableID:3:13",
+    "surface": "VariableID:3:14",
+    "ink": "VariableID:3:15",
+    "muted": "VariableID:3:16",
+    "brand": "VariableID:3:17",
+    "selected": "VariableID:3:18",
+    "line": "VariableID:3:19",
+    "attention": "VariableID:3:20",
+    "attentionBg": "VariableID:3:21",
+    "sage": "VariableID:13:127"
+  },
+  "dimensions": {
+    "space4": "VariableID:3:35",
+    "space8": "VariableID:3:36",
+    "space12": "VariableID:3:37",
+    "space20": "VariableID:3:38",
+    "space32": "VariableID:3:39",
+    "space48": "VariableID:3:40",
+    "space56": "VariableID:3:41",
+    "radius8": "VariableID:3:42",
+    "radius12": "VariableID:3:43",
+    "radius24": "VariableID:3:44",
+    "space16": "VariableID:3:45",
+    "space24": "VariableID:3:46",
+    "round": "VariableID:13:129",
+    "surfaceRadius": "VariableID:13:131"
+  },
+  "textStyles": {
+    "BN/Title": "S:6d63282231003468fce573bd809994b449c3f791,",
+    "BN/Heading": "S:34ba297216af05b166db52cb8fac95865dd9c92d,",
+    "BN/Body": "S:997f3a44ef7c50aa2e2970b16068d7bb64d1e1ba,",
+    "BN/Label": "S:1a71e42392dc5f8d3db715f4bdbc9142faf10d5c,",
+    "BN/Meta": "S:8682969f69613c9523faa6dbb90079b572cbe054,",
+    "BN/Amount": "S:76f146b7b9589feb386167fc94f34b193d79b53e,",
+    "BN/Metric": "S:66022dbf946cb934243db7e377b93fd33a2eed04,",
+    "BN/Nav": "S:ff014907147a5567041e4afad5dd38862cdaac6e,",
+    "EN/Title": "S:defb566389b8889562e4ce9570324d61144a0521,",
+    "EN/Heading": "S:bbcd2887f61008eaf058183ac9b7eb3a35b12d7e,",
+    "EN/Body": "S:0cd393d3b58b903111aba0e18ccd2154dd72bdd0,",
+    "EN/Label": "S:ea3bdb69ca26de629e636bd780d6d81881ad52d8,",
+    "EN/Meta": "S:f63595e2b2e9e470164daa8100e0d5628b4609a8,",
+    "EN/Amount": "S:efe108d277e4ab3d7e87ae4c40b1e4ca9e9f74db,",
+    "EN/Metric": "S:3d5c4b780c831206aeaad26330b2bdc1fc4aa799,",
+    "EN/Nav": "S:57b3b5c99c4afd659c9098a762d80c02856759f1,"
+  },
+  "prototypeConnections": 0,
+  "verification": {
+    "editableTextNodes": 82,
+    "componentInstances": 60,
+    "imageFilledNodes": 0,
+    "visualPreview": "home-review.png",
+    "nativeChecksRun": false,
+    "centerDestination": "Home / হোম; house icon; raised 26",
+    "flatPairContrast": {
+      "buttonWhite": 4.98,
+      "whiteIconOnSage": 3.31
+    },
+    "nodeCounts": {
+      "TEXT": 82,
+      "FRAME": 99,
+      "INSTANCE": 60,
+      "VECTOR": 34,
+      "ELLIPSE": 3,
+      "RECTANGLE": 10
+    },
+    "languageSelection": "Bangla selected by default; English selected in EN review",
+    "headerLayout": "Single horizontal row; 68 high; selector 180 × 48; options 90 × 48; labels size 16"
+  },
+  "revision": "2026-10-23 compact inline language radio selector beside Home heading",
+  "sessionId": "5987d376-931c-41d3-a9e2-a6f86c6c284f",
+  "effectStyles": {
+    "soft": "S:a26dc359d102399fc5770374aa9e2e67e2aaea12,",
+    "control": "S:2b5ea305d3a2a1aee9bbf07a0bdf6dd6d6de14d2,",
+    "navigation": "S:60bd1608f4c6f223c802bdc1e3d9e8f61ce08020,",
+    "raised": "S:77650a6a30ef36337223b9b21ef30da6b46d1426,"
+  },
+  "resolvedColors": {
+    "canvas": "#F3F8F1",
+    "surface": "#FFFFFF",
+    "brand": "#4D7A50",
+    "sage": "#6B9870",
+    "ink": "#1B2D20",
+    "muted": "#526452",
+    "selected": "#E7F1E5",
+    "line": "#DFE8DD"
+  },
+  "navigationOrder": [
+    "Ledger / হিসাব",
+    "Properties / বাড়ি",
+    "Home / হোম",
+    "Tenants / ভাড়াটিয়া",
+    "More / আরও"
+  ],
+  "languageGroups": [
+    {
+      "id": "6:975",
+      "choices": [
+        {
+          "id": "17:146",
+          "label": "বাংলা",
+          "selected": true,
+          "width": 90,
+          "height": 48
+        },
+        {
+          "id": "17:150",
+          "label": "English",
+          "selected": false,
+          "width": 90,
+          "height": 48
+        }
+      ],
+      "width": 180,
+      "height": 48,
+      "placement": "Beside heading"
+    },
+    {
+      "id": "6:1086",
+      "choices": [
+        {
+          "id": "17:153",
+          "label": "বাংলা",
+          "selected": false,
+          "width": 90,
+          "height": 48
+        },
+        {
+          "id": "17:156",
+          "label": "English",
+          "selected": true,
+          "width": 90,
+          "height": 48
+        }
+      ],
+      "width": 180,
+      "height": 48,
+      "placement": "Beside heading"
+    },
+    {
+      "id": "6:1195",
+      "choices": [
+        {
+          "id": "17:160",
+          "label": "বাংলা",
+          "selected": true,
+          "width": 90,
+          "height": 48
+        },
+        {
+          "id": "17:164",
+          "label": "English",
+          "selected": false,
+          "width": 90,
+          "height": 48
+        }
+      ],
+      "width": 180,
+      "height": 48,
+      "placement": "Beside heading"
+    }
+  ]
+}

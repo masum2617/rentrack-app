@@ -1,0 +1,223 @@
+{
+  "main": {
+    "id": "1b51f3c7414a6c30",
+    "type": "split",
+    "children": [
+      {
+        "id": "774c8d1c071e66f3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "585b363a61ae9b1e",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "03a156f00432394a",
+    "type": "split",
+    "children": [
+      {
+        "id": "58a756e1af7c7990",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8230c2ec01606ab5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "a9d86e136369545f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "b579a81eedde6336",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "15205d09e2bb3052",
+    "type": "split",
+    "children": [
+      {
+        "id": "d9ec058b85c2a3ed",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ccbd0355659f9d22",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "866f068ee78c2064",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "0672f1a5c6550d05",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "a864773cd95485e6",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "e2781d31c42487f0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "create a link.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "585b363a61ae9b1e",
+  "lastOpenFiles": [
+    "mobile-app/AGENTS.md",
+    "mobile-app/docs/README.md",
+    "mobile-app/docs/mobile app",
+    "mobile-app/docs/localization-accessibility.md",
+    "mobile-app/docs/domains/tenants.md",
+    "mobile-app/docs/domains/tenancies.md",
+    "mobile-app/docs/domains/reporting.md",
+    "mobile-app/docs/domains/properties.md",
+    "mobile-app/docs/domains/ledger.md",
+    "mobile-app/docs/domains/electricity.md",
+    "mobile-app/docs/domains/access.md",
+    "mobile-app/docs/domains/README.md",
+    "mobile-app/docs/domains",
+    "mobile-app/docs/design-system.md",
+    "mobile-app/docs/architecture.md",
+    "mobile-app/docs/agent-workflow.md",
+    "mobile-app/docs/adr/0001-offline-mobile-client.md",
+    "mobile-app/docs/adr",
+    "mobile-app/docs",
+    "mobile-app/assets/icons",
+    "mobile-app/assets/fonts",
+    "mobile-app/assets/README.md",
+    "mobile-app/assets",
+    "mobile-app/README.md",
+    "mobile-app/GLOSSARY.md",
+    "mobile-app",
+    "AGENTS.md",
+    "docs/mobile app",
+    "docs/localization-accessibility.md",
+    "docs/domains/tenants.md",
+    "docs/domains/tenancies.md",
+    "docs/domains/reporting.md",
+    "docs/domains/properties.md",
+    "docs/domains/ledger.md",
+    "docs/domains"
+  ]
+}
