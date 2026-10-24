@@ -2,7 +2,7 @@
 
 Owner: src/features/home. Purpose: identify the next useful task for the authorized property/period scope. Read [navigation](../navigation.md) and domain read interfaces from [architecture](../architecture.md).
 
-Current visual artifact: [Home-only Figma draft](../design/home-review.md), containing Bangla, English and empty Home states with explicit fictional data. Step 2 implements the reviewed native layout, temporary locale switching, navigation shell and named demo/empty states. Demo selectors change fixture presentation only. SQLite and backend work remain deferred. See the delivery log for actual native verification.
+Current visual artifact: [Home-only Figma draft](../design/home-review.md), containing Bangla, English and empty Home states with explicit fictional data. Step 3 implements the reviewed native layout, navigation shell, named demo/empty states and SQLite-backed language preference. Demo selectors change fixture presentation only. Backend work remains deferred. See the delivery log for actual native verification.
 
 ## Information and actions
 

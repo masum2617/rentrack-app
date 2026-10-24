@@ -1,6 +1,6 @@
 # Incremental implementation and learning roadmap
 
-Status: Step 2 complete, 24 October 2026. Reviewed green/white Home, raised center Home / হোম, bilingual radio selector, demo filters and empty Home are implemented. Native builds/rendering and scoped checks are recorded in the delivery log. Next is Step 3: SQLite locale preference. Backend connection remains deferred.
+Status: Step 3 complete, 24 October 2026. Reviewed green/white Home, raised center Home / হোম, bilingual radio selector, demo filters and empty Home are implemented. The selected language now persists in SQLite across verified Android and iOS restarts. Native builds/rendering and scoped checks are recorded in the delivery log. Next is Step 4: an installable Android preview. Backend connection remains deferred.
 
 ## Goal and scope of the first milestone
 
@@ -29,7 +29,7 @@ Home metrics are explicitly labeled demo data at this stage. They are not an imp
 | Preparation: focused Home design | Home in Bangla, English fit check, empty/demo state and large-text considerations; latest green/white and raised bottom-bar reference 6 | Reviewed Home hierarchy and sensible primary/secondary actions | Why design review precedes layout code |
 | 1. Expo boot — complete | Minimal compatible Expo/React Native/TypeScript project, preserved docs and folders, first native screen | Android emulator and iOS Simulator launch/screenshots; exact commands in README | Expo, native components, development server and fast refresh |
 | 2. Home UI — complete | Shared minimum tokens/components, readable Home with explicit demo data, locale switching and navigation shell | Visible native Home, both languages, narrow/large-text review | Components, props, state, layout and text |
-| 3. SQLite introduction | Minimal schema migration and preference read/write behind local-storage boundary | Choose language, restart, retain it; failure handled | Tables, queries, persistent versus temporary state |
+| 3. SQLite introduction — complete | Minimal schema migration and preference read/write behind local-storage boundary | Language restored after true Android/iOS restart; migration/write failures have safe UI handling | Tables, queries, persistent versus temporary state |
 | 4. Installable Android preview | Generate a signed test APK with bundled JavaScript/assets; install on physical Android | Launch with Metro stopped, airplane-mode review and locale persistence after normal restart | Preview versus development build, APK versus AAB, local storage lifetime |
 | Review before expansion | User tries Home; lesson and delivery evidence updated | Questions answered and next slice chosen | Explain the code/data flow before expansion |
 
@@ -95,7 +95,7 @@ Read-only inspection found extra nested directories named mobile app under mobil
 
 ## Pending choices
 
-Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record the selected tooling and actual native results. React Navigation and temporary locale state are installed and implemented. Continue one checkpoint at a time; the next authorized slice should introduce SQLite preferences.
+Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record the selected tooling and actual native results. React Navigation and SQLite-backed locale preference persistence are installed and implemented. Continue one checkpoint at a time; the next authorized slice should create and test a standalone Android preview APK.
 
 Official build references checked 23 October 2026: [Android APKs](https://docs.expo.dev/build-reference/apk/), [local release builds](https://docs.expo.dev/guides/local-app-production/), and [internal distribution](https://docs.expo.dev/build/internal-distribution/). These establish available workflows, not a completed build in this workspace.
 

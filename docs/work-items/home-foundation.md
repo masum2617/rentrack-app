@@ -1,6 +1,6 @@
 # Task: first runnable Home and local preference
 
-Status: Step 2 complete — reviewed Home, bilingual state, navigation shell and demo/empty previews. SQLite preference and standalone APK remain later checkpoints.  
+Status: Step 3 complete — reviewed Home, bilingual state, navigation shell, demo/empty previews and SQLite locale preference. Standalone APK remains a later checkpoint.
 Owner: main implementation thread for the first authorized checkpoint  
 Coordinator: main implementation thread
 
@@ -69,3 +69,12 @@ Update [delivery log](../delivery-log.md) and [external learning notes](../../..
 - `npm run typecheck`, four `npm test` checks, Expo dependency compatibility and Expo Doctor 20/20 passed. Native builds and screenshots passed; iOS interaction checks exercised language, property/month selection, unavailable action feedback and empty-state navigation.
 - Evidence and precise limits: [Step 2 verification](../evidence/step-2/README.md). Learning: [lesson 03](../../../learning-notes/03-home-layout-and-language.md).
 - Next: Step 3 SQLite locale preference, only when requested. No database-backed money, backend, standalone APK or physical phone verification in this checkpoint.
+
+### Step 3 handoff — 24 October 2026
+
+- Added `expo-sqlite` and one platform-owned database: `house-rent-tracker.db`. Migration version 1 creates exactly one `device_preferences` row slot; it accepts only `bn` or `en`.
+- `LocaleProvider` waits for the database/migration/read before exposing Home. It defaults to Bangla if no preference exists, keeps the existing language visible if a write fails, disables duplicate language taps while saving, and offers a bilingual retry view when startup storage cannot open.
+- `npm run typecheck` and all nine Node tests passed. The five SQLite tests use a real SQLite engine; they include a close/reopen persistence test and failure cases.
+- Native development clients were rebuilt because SQLite is native. iPhone 17 Pro/iOS 26.5 and Pixel_6 Android builds succeeded. On both, English was selected, the app was fully terminated/force-stopped, relaunched, and visibly restored in English. Screenshots: [iOS](../evidence/step-3/ios-english-after-restart.png), [Android](../evidence/step-3/android-english-after-restart.png).
+- This proves only a device-local language setting in development builds. It does not create financial records, authentication, backup, cross-device synchronization, a physical-phone test, or the standalone APK.
+- Learning handoff: [lesson 04](../../../learning-notes/04-sqlite-language-preference.md). Next: Step 4 Android preview APK when requested.

@@ -47,8 +47,8 @@ Important tasks require no swipe, long press, icon interpretation, time-limited 
 Test lookup, payment/allocation, balance explanation, and sequential readings with representative Bangla-speaking adults across the stated age range and younger users. Record mistakes and completion obstacles, not just aesthetic preference. Verification is not claimed by this specification.
 
 
-## Step 2 implementation status
+## Step 3 implementation status
 
-Typed dictionaries cover the current Home/navigation/preview UI. Both Noto font families and translations are local. Bengali digits are mapped explicitly after grouping because the tested native formatter returned Latin digits for bn-BD. Entered property names retain their script. Language and filter choices survive ordinary tab navigation but reset on a full process restart; the persistence requirement above belongs to Step 3.
+Typed dictionaries cover the current Home/navigation/preview UI. Both Noto font families and translations are local. Bengali digits are mapped explicitly after grouping because the tested native formatter returned Latin digits for bn-BD. Entered property names retain their script. The language choice is saved to one local SQLite preference row and restored before Home is shown; English survived true process restarts on the recorded Android and iOS emulators. Filter and empty-preview choices remain temporary React state and reset on a full process restart. Local preference persistence is per installation: it is not account sync, backup, or proof that it survives uninstall/clear-data.
 
 Header/filter groups stack below 380 logical pixels or at enlarged font scale. Financial columns stack below 370 or at enlarged scale. Body text scales with the system. Bottom-tab text scales to 1.3× (1.15× below 380) to preserve five visible destinations; long narrow labels may wrap. This is a measured layout compromise, not proof of older-user or screen-reader usability. See native screenshots and verification limits in evidence/step-2.

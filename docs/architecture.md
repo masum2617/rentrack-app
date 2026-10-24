@@ -55,7 +55,7 @@ Preserve original receipt date, billing period, due date, effective term date, a
 
 ## Implementation choices still open
 
-Use TypeScript for the eventual mobile code as a project convention. Select concrete Expo/React Native versions, navigation/state tooling, database integration, money representation/rounding, sync contracts, and authentication during the applicable authorized bootstrap/feature task. Record hard-to-reverse trade-offs in an ADR when warranted.
+TypeScript, Expo/React Native, React Navigation and Expo SQLite are selected for the current native client. `src/platform/database/` opens `house-rent-tracker.db`, owns versioned schema migration, and currently stores only the device-local language preference. The direct parameterized SQL is deliberately small for this learning slice; it is not a generic repository pattern or a rental ledger schema. Money representation/rounding, sync contracts, authentication and real domain tables remain open for their authorized feature tasks. Record hard-to-reverse trade-offs in an ADR when warranted.
 
 The backend stack is accepted, but no server routes, DTOs, schema, or library versions are established by these documents.
 

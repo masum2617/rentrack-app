@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '../features/home/HomeScreen';
-import { useLocale } from '../i18n/LocaleProvider';
-import { colors } from '../theme/colors';
-import { BottomBar } from './BottomBar';
-import { UnavailableScreen } from './UnavailableScreen';
+import { useState } from "react";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { HomeScreen } from "../features/home/HomeScreen";
+import { useLocale } from "../i18n/LocaleProvider";
+import { colors } from "../theme/colors";
+import { BottomBar } from "./BottomBar";
+import { UnavailableScreen } from "./UnavailableScreen";
 
 type Tabs = {
   Ledger: undefined;
@@ -35,40 +35,40 @@ export function AppNavigator() {
       <Tab.Navigator
         initialRouteName="Home"
         tabBar={(props) => <BottomBar {...props} />}
-        screenOptions={{ headerShown: false, animation: 'none' }}
+        screenOptions={{ headerShown: false, animation: "none" }}
       >
-        <Tab.Screen name="Ledger" options={{ title: t('ledger') }}>
+        <Tab.Screen name="Ledger" options={{ title: t("ledger") }}>
           {({ navigation }) => (
             <UnavailableScreen
-              title={t('ledger')}
-              onHome={() => navigation.navigate('Home')}
+              title={t("ledger")}
+              onHome={() => navigation.navigate("Home")}
             />
           )}
         </Tab.Screen>
-        <Tab.Screen name="Properties" options={{ title: t('properties') }}>
+        <Tab.Screen name="Properties" options={{ title: t("properties") }}>
           {({ navigation }) => (
             <UnavailableScreen
-              title={t('properties')}
-              onHome={() => navigation.navigate('Home')}
+              title={t("properties")}
+              onHome={() => navigation.navigate("Home")}
             />
           )}
         </Tab.Screen>
-        <Tab.Screen name="Home" options={{ title: t('home') }}>
+        <Tab.Screen name="Home" options={{ title: t("home") }}>
           {() => <HomeScreen empty={empty} />}
         </Tab.Screen>
-        <Tab.Screen name="Tenants" options={{ title: t('tenants') }}>
+        <Tab.Screen name="Tenants" options={{ title: t("tenants") }}>
           {({ navigation }) => (
             <UnavailableScreen
-              title={t('tenants')}
-              onHome={() => navigation.navigate('Home')}
+              title={t("tenants")}
+              onHome={() => navigation.navigate("Home")}
             />
           )}
         </Tab.Screen>
-        <Tab.Screen name="More" options={{ title: t('more') }}>
+        <Tab.Screen name="More" options={{ title: t("more") }}>
           {({ navigation }) => (
             <UnavailableScreen
-              title={t('more')}
-              onHome={() => navigation.navigate('Home')}
+              title={t("more")}
+              onHome={() => navigation.navigate("Home")}
               empty={empty}
               onPreviewChange={setEmpty}
             />

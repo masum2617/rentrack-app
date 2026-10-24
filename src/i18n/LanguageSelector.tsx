@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, View } from 'react-native';
-import { useLocale, type Locale } from './LocaleProvider';
-import { AppText } from '../shared/ui/AppText';
-import { AssetIcon } from '../shared/ui/AssetIcon';
-import { colors } from '../theme/colors';
-import { surfaces } from '../theme/surfaces';
+import { Pressable, StyleSheet, View } from "react-native";
+import { useLocale, type Locale } from "./LocaleProvider";
+import { AppText } from "../shared/ui/AppText";
+import { AssetIcon } from "../shared/ui/AssetIcon";
+import { colors } from "../theme/colors";
+import { surfaces } from "../theme/surfaces";
 
 function LanguageOption({
   value,
@@ -14,15 +14,18 @@ function LanguageOption({
   label: string;
   fontFamily: string;
 }) {
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale, saving } = useLocale();
   const selected = value === locale;
   return (
     <Pressable
       key={value}
       accessibilityRole="radio"
-      accessibilityState={{ checked: selected }}
+      accessibilityState={{ checked: selected, disabled: saving, busy: saving }}
       accessibilityLabel={label}
-      onPress={() => setLocale(value)}
+      disabled={saving}
+      onPress={() => {
+        void setLocale(value);
+      }}
       style={[styles.option, selected && styles.selected]}
     >
       {selected ? <AssetIcon name="radio" /> : <View style={styles.radio} />}
@@ -41,7 +44,7 @@ export function LanguageSelector({ compact = true }: { compact?: boolean }) {
   return (
     <View
       accessibilityRole="radiogroup"
-      accessibilityLabel={t('language')}
+      accessibilityLabel={t("language")}
       style={[
         surfaces.control,
         styles.group,
@@ -54,21 +57,21 @@ export function LanguageSelector({ compact = true }: { compact?: boolean }) {
   );
 }
 const styles = StyleSheet.create({
-  group: { flexDirection: 'row' },
+  group: { flexDirection: "row" },
   compact: { width: 180 },
-  expanded: { alignSelf: 'stretch' },
+  expanded: { alignSelf: "stretch" },
   option: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 4,
     minHeight: 48,
     paddingHorizontal: 6,
     paddingVertical: 8,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: "transparent",
   },
   selected: { backgroundColor: colors.selected, borderColor: colors.brand },
   radio: {

@@ -1,4 +1,11 @@
 export const english = {
+  preferenceLoading: 'Loading your language preference…',
+  preferenceLoadError:
+    'Could not open your saved preferences. Retry to continue. Your data has not been reset.',
+  preferenceSaveError: 'Language was not saved',
+  preferenceSaveErrorBody:
+    'Your previous language is still selected. Please choose the language again to retry.',
+  retry: 'Retry',
   overview: 'Overview',
   home: 'Home',
   ledger: 'Ledger',
@@ -54,6 +61,13 @@ export const english = {
 
 export type MessageKey = keyof typeof english;
 export const bangla: Record<MessageKey, string> = {
+  preferenceLoading: 'আপনার ভাষার পছন্দ লোড হচ্ছে…',
+  preferenceLoadError:
+    'সংরক্ষিত পছন্দ খোলা যায়নি। চালিয়ে যেতে আবার চেষ্টা করুন। আপনার তথ্য মুছে ফেলা হয়নি।',
+  preferenceSaveError: 'ভাষার পছন্দ সংরক্ষণ হয়নি',
+  preferenceSaveErrorBody:
+    'আগের ভাষাই নির্বাচিত আছে। আবার চেষ্টা করতে ভাষাটি বেছে নিন।',
+  retry: 'আবার চেষ্টা করুন',
   overview: 'এক নজরে',
   home: 'হোম',
   ledger: 'হিসাব',

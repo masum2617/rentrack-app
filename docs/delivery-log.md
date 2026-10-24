@@ -97,6 +97,22 @@ Purpose: a concise, evidence-based account that another agent can resume and the
 
 **Next:** Step3, save the language preference using SQLite and verify normal-restart behavior. Stop at this checkpoint before expanding scope.
 
+## 24 October 2026 — Step 3 SQLite language preference completed
+
+**Scope and result:** added one local SQLite preference only. First install remains Bangla. Selecting বাংলা or English writes a constrained `bn`/`en` value in the app's `device_preferences` table; app startup migrates/reads the database before showing Home. A successful write changes the visible language; a failed write retains the prior language, and a storage-open failure presents a bilingual retry state.
+
+**Code approach:** `src/platform/database/` owns the `house-rent-tracker.db` connection, a version-1 migration and parameterized read/upsert functions. `LocaleProvider` remains the locale/i18n owner and calls that small platform boundary. The table has one allowed row and values; no ORM, generic repository or business-domain schema was added.
+
+**Verified:** TypeScript passed. Nine Node tests passed: the existing four Home/format tests plus five real-SQLite migration/preference tests. Android Pixel_6 and iPhone 17 Pro/iOS 26.5 development clients were rebuilt with `expo-sqlite`. On each device, English was selected, the app was fully force-stopped/terminated and relaunched, then visibly reopened in English. Screenshots and exact scope are in [Step 3 evidence](evidence/step-3/README.md). Expo dependency validation reported versions up to date from its local map while network access was disabled; this is not a networked registry check.
+
+**Limits:** this proves one per-installation setting in Metro-connected development apps. It does not prove persistence after uninstall/clear-data, backup, account settings, synchronization, a physical Android launch, independent offline launch, financial records, authentication, backend/API work or the future standalone APK. Node's test runner prints experimental SQLite/module-type warnings; they are not test failures. No forced audit remediation was performed.
+
+**Learning:** [lesson 04 outside the coding project](../../learning-notes/04-sqlite-language-preference.md) explains the actual files, schema, migration, transaction, SQL and test flow.
+
+**Presentation statement:** “The Home app now remembers its Bangla or English setting locally after a normal Android or iOS restart. This is a small verified SQLite foundation—not yet a rental database, cloud sync or offline release build.”
+
+**Next:** Step 4 is a standalone Android preview APK for physical-phone and Metro-independent launch testing, when requested.
+
 ## Entry format for future checkpoints
 
 - Date and linked task:

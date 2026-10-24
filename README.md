@@ -2,7 +2,7 @@
 
 Working project for the landlord-operated Android/iOS application. Bangla is the default, English is fully supported, and everyday workflows must remain straightforward for younger adults and adults aged approximately 45–70.
 
-**Current checkpoint:** Step 2 — reviewed green/white Home, Bangla/English switching, property/month demo filters, empty Home and five-tab navigation shell. Android and iOS native builds/rendering are verified; see [delivery evidence](docs/evidence/step-2/README.md). SQLite preference persistence is next. Backend and standalone APK remain separate checkpoints.
+**Current checkpoint:** Step 3 — the reviewed Home, bilingual navigation and one durable device preference are implemented. Bangla remains the first-install default; the selected Bangla/English language is stored in SQLite and restored after a normal restart. Android and iOS restart evidence is in [Step 3 evidence](docs/evidence/step-3/README.md). Backend, real rental records and the standalone Android APK remain separate checkpoints.
 
 Start with [AGENTS.md](AGENTS.md), then the [documentation index](docs/README.md).
 
@@ -60,11 +60,11 @@ npm test
 npm run check:dependencies
 ~~~
 
-`typecheck` checks TypeScript. `test` runs four focused fixture/number-format checks with Node’s built-in runner. `check:dependencies` compares package versions with Expo's SDK recommendations. Neither proves a native launch; see recorded device evidence in the delivery log.
+`typecheck` checks TypeScript. `test` runs the Home fixture/number-format checks and SQLite migration/preference checks with Node’s built-in runner. `check:dependencies` compares package versions with Expo's SDK recommendations; an offline fallback is less authoritative than a networked check. Neither replaces native testing; see recorded device evidence in the delivery log.
 
 ## First files to read
 
-Follow `index.ts` → `App.tsx` → `src/navigation/AppNavigator.tsx` → `src/features/home/HomeScreen.tsx`. [Lesson 03 outside the app](../learning-notes/03-home-layout-and-language.md) explains components, props, state and locale context using these files.
+Follow `index.ts` → `App.tsx` → `src/i18n/LocaleProvider.tsx` → `src/platform/database/database.ts` → `src/platform/database/migrations.ts` → `src/platform/database/languagePreference.ts` → `src/navigation/AppNavigator.tsx` → `src/features/home/HomeScreen.tsx`. [Lesson 04 outside the app](../learning-notes/04-sqlite-language-preference.md) explains the persisted language flow.
 
 ## Review this checkpoint
 
@@ -72,7 +72,7 @@ Follow `index.ts` → `App.tsx` → `src/navigation/AppNavigator.tsx` → `src/f
 - Choose a property or billing month to inspect the named demo fixtures. All-month outstanding has a different scope from monthly billed/received.
 - Open More → Development preview → Empty portfolio, then Home, to inspect first-use guidance. Select Sample portfolio to return. These controls exist only in development builds.
 - Other tabs and money/property actions explain that their workflows are not built. Nothing is saved.
-- Locale, selected filters and empty-preview state are temporary React state. A full app restart returns to Bangla/sample data; SQLite persistence comes next.
+- The language choice is a local SQLite preference and survives a normal app restart. Property/month filters and empty-preview state remain temporary React state and reset on a full restart. Deleting the app or clearing its data can remove the local preference; there is no account sync or backup yet.
 - The floating gear is Expo’s development tooling, not an app feature or part of the release UI.
 
 The starter icon assets are temporary and retain Expo's license under `assets/expo-template-LICENSE.txt`. The app's local preview package/bundle identifier is `com.houserenttracker.preview`.
@@ -133,7 +133,7 @@ mobile-app/
   tests/integration/
 ~~~
 
-The accepted stack is React Native, Expo, SQLite, Spring Boot, PostgreSQL, and private file storage. This folder is the mobile client. Installed dependency versions are in `package.json` and `package-lock.json`; a native development client and safe-area handling are included. React Navigation and in-memory locale state are implemented. SQLite, authentication, backend and file storage are not implemented.
+The accepted stack is React Native, Expo, SQLite, Spring Boot, PostgreSQL, and private file storage. This folder is the mobile client. Installed dependency versions are in `package.json` and `package-lock.json`; a native development client and safe-area handling are included. React Navigation plus SQLite-backed locale preference persistence are implemented. Real rental records, authentication, backend and file storage are not implemented.
 
 Business modules follow rental domains, not one module per prototype frame. Empty directories reserve intended locations; create implementation layers only as a concrete feature needs them.
 
