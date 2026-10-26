@@ -1,6 +1,6 @@
 # Verification by risk and change
 
-The app now has type checking, nine focused Node tests (Home/formatting plus SQLite preference behavior), Expo compatibility checks and native development builds. Run the package scripts appropriate to the change. The table below describes requirements for future business workflows; it does not claim those workflows exist. Checkpoint evidence lives in the delivery log.
+The app has type checking and 14 focused Node tests covering Home/formatting, SQLite preferences and local house migration/create/update/search/reopen/failure behavior. Expo compatibility checks and native development builds remain available. Run the package scripts appropriate to the change. The table below describes requirements for future business workflows; it does not claim those workflows exist. Checkpoint evidence lives in the delivery log.
 
 | Change | Evidence needed |
 |---|---|

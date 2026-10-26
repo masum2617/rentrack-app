@@ -1,6 +1,6 @@
 # Step 5 — Properties design review
 
-Status: editable Figma draft ready for owner review, 27 October 2026. Application code and property database work have not started.
+Status: editable Figma draft created 27 October 2026; owner subsequently authorized Step 5 implementation. Native list/form and local persistence are implemented; see the delivery log for actual verification. The board remains the visual reference.
 
 [Open the full review board](https://www.figma.com/design/NbtxYyU5l1j2QSLTRBioUL?node-id=38-128)
 

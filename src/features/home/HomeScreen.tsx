@@ -23,7 +23,13 @@ import { EmptyHome } from './EmptyHome';
 import { FinancialSummary } from './FinancialSummary';
 import { demoProperties, getDemoSummary, type DemoMonth } from './homeDemoData';
 
-export function HomeScreen({ empty = false }: { empty?: boolean }) {
+export function HomeScreen({
+  empty = false,
+  onAddProperty,
+}: {
+  empty?: boolean;
+  onAddProperty: () => void;
+}) {
   const { t, number } = useLocale();
   const { width, fontScale } = useWindowDimensions();
   const compact = width >= 380 && fontScale <= 1.15;
@@ -66,7 +72,7 @@ export function HomeScreen({ empty = false }: { empty?: boolean }) {
         contentContainerStyle={styles.content}
       >
         {empty ? (
-          <EmptyHome onAdd={unavailable} />
+          <EmptyHome onAdd={onAddProperty} />
         ) : (
           <>
             <View

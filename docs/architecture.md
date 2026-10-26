@@ -55,7 +55,9 @@ Preserve original receipt date, billing period, due date, effective term date, a
 
 ## Implementation choices still open
 
-TypeScript, Expo/React Native, React Navigation and Expo SQLite are selected for the current native client. `src/platform/database/` opens `house-rent-tracker.db`, owns versioned schema migration, and currently stores only the device-local language preference. The direct parameterized SQL is deliberately small for this learning slice; it is not a generic repository pattern or a rental ledger schema. Money representation/rounding, sync contracts, authentication and real domain tables remain open for their authorized feature tasks. Record hard-to-reverse trade-offs in an ADR when warranted.
+TypeScript, Expo/React Native, React Navigation and Expo SQLite are selected for the current native client. `src/platform/database/` opens `house-rent-tracker.db` and owns versioned schema migration. Direct parameterized SQL serves the language preference and local house records. Money representation/rounding, sync contracts, authentication and other domain tables remain open for their authorized feature tasks. Record hard-to-reverse trade-offs in an ADR when warranted.
+
+Step 5 adds the `properties` table in schema v2 and direct read/create/update functions in `src/features/properties/propertyStore.ts`. Numeric SQLite IDs are stable within this installation; future server/sync identity remains an explicit later contract. The feature owns required-field validation and trimming. Parameters bind user input separately from SQL. AppNavigator coordinates the full-screen form, list refresh and Home setup shortcut. No new state library, ORM or routing dependency was required.
 
 The backend stack is accepted, but no server routes, DTOs, schema, or library versions are established by these documents.
 

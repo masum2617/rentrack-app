@@ -36,5 +36,5 @@ Run the checks relevant to the actual change using [verification](docs/verificat
 
 Existing user authorization carries forward. Do not add per-screen approval gates or repeat approved direction/language questions. New work remains limited to what the user requested; commits, publication, deployment, and messages to others require their applicable authorization.
 
-Current baseline: Step 3 reviewed Home, demo/empty states, bilingual UI/navigation shell and SQLite-backed locale preference. Read the README and delivery log for run commands and evidence. Backend, real financial workflows and standalone APK remain separate checkpoints.
+Current baseline: Step 5 local house list/create/edit plus the bilingual Home demo and persisted locale. Read the README and delivery log for commands and evidence. Step 6 introduces house details, named floors and units; backend, financial workflows and sync remain later slices.
 

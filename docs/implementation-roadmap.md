@@ -1,6 +1,6 @@
 # Incremental implementation and learning roadmap
 
-Status: Steps 1–4 complete. The owner confirmed completion of the physical Android preview checkpoint after the verified APK build. Step 3 language persistence and native Home evidence remain recorded in the delivery log. Next proposed implementation is Step 5: local property list and add/edit property, delivered in small checkpoints. Backend connection remains deferred.
+Status: Steps 1–4 complete; Step 5 house list and shared Add/Edit form implemented with SQLite. The owner confirmed the earlier physical Android preview checkpoint. Step 5 evidence and platform limits are in the delivery log. Next is the Step 6 house-details/named-floor/unit design slice. Backend connection remains deferred.
 
 ## Goal and scope of the first milestone
 
@@ -43,9 +43,9 @@ Implement only Home as a real feature in the first milestone. Unbuilt destinatio
 
 A runtime/visual test in a browser is supplementary; it does not establish Android/iOS behavior. Offline persistence testing must distinguish disconnecting an already loaded preview from cold-launching an independently installed build.
 
-## Next implementation: Step 5, local properties
+## Implemented: Step 5, local properties
 
-See [the Step 5 plan](work-items/local-properties.md). Deliver one real offline create/read/update flow: property list → add property → saved list → edit property. Begin with a small screen/form review, then the properties migration and read/write functions, then connected native screens and restart/failure checks. Preserve the existing language preference during migration.
+See [the Step 5 work item](work-items/local-properties.md). Implemented property list → add house → saved list → edit house with SQLite schema v2, required-field validation, search, dirty Back and retained-input retry. The language preference is preserved by migration. Native verification and its limits are recorded in the delivery log.
 
 Do not add units, tenant links, accounting, deletion, accounts or backend/sync in this slice. Home financial fixtures remain explicitly marked demonstration data; do not blend stored property counts into fixture money. The follow-up unit slice introduces the parent/child relationship and meaningful unit counts.
 
@@ -55,7 +55,7 @@ Do not add units, tenant links, accounting, deletion, accounts or backend/sync i
 |---|---|---|
 | 1 | Home and local preference | Fastest feedback and smallest useful native/SQLite learning loop |
 | 2 | Property list + add/edit property | First real local CRUD; easy relational identity |
-| 3 | Property detail + unit list/add unit | Learn parent/child records and navigation parameters |
+| 3 | House detail → named floors → unit list/form | Learn connected parent/child records with the parent selected by navigation |
 | 4 | Tenant list + minimal identity form | Find/create a person without document complexity |
 | 5 | Start tenancy + tenancy account + opening values | Connect tenant and unit under dated terms; decide needed opening policies |
 | 6 | Basic fixed-charge bill review + dues view | Establish the balance source before accepting payments; resolve applicable date/rounding rules |
@@ -101,7 +101,7 @@ Read-only inspection found extra nested directories named mobile app under mobil
 
 ## Pending choices
 
-Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record the selected tooling and actual native results. React Navigation, SQLite-backed locale preference persistence and an APK build command are implemented. Step 4 is owner-confirmed complete. Continue one checkpoint at a time with the proposed local property slice; this plan does not start implementation.
+Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record actual results. Local house creation/editing and locale persistence are implemented. Next, review house-details/floor/unit forms before implementing Step 6.
 
 Official build references checked 23 October 2026: [Android APKs](https://docs.expo.dev/build-reference/apk/), [local release builds](https://docs.expo.dev/guides/local-app-production/), and [internal distribution](https://docs.expo.dev/build/internal-distribution/). These establish available workflows, not a completed build in this workspace.
 

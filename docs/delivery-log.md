@@ -139,6 +139,16 @@ Next proposed slice: [Step 5 local properties](work-items/local-properties.md), 
 
 **Limits/next:** static design review only, pending owner feedback. No application code, SQLite property migration, backend, floor/unit screens or native keyboard/persistence behavior was implemented. Agreed future structure is House → Named floor → Rental unit. [External design lesson](../../learning-notes/05-property-design-review.md).
 
+## 27 October 2026 — Step 5 local house workflow
+
+**Delivered:** implemented the reviewed whole-house list and shared Add/Edit form in `src/features/properties/`. Required name/location, optional multiline address, search across all three fields, explicit Edit, empty/no-match/loading/retry states, inline validation and retained-input save errors. A native full-screen form hides tabs, guards unsaved Back, blocks repeated Save taps and waits for SQLite success before returning. Its heading/fields scroll while Back and the keyboard-aware Save footer remain reachable. List search/scroll context survives a save. Home's empty-preview Add shortcut opens this workflow; Home money/counts remain labeled fixtures.
+
+**Storage/structure:** schema v2 adds `properties` while preserving `device_preferences`. Feature-owned direct SQL handles trimmed create/read/update; stable local IDs identify houses independently of names. No runtime dependency, ORM, backend or synchronization system was added. Floors, units and house details are the following design slice. Current Save returns to the updated list; house-detail selection comes with Step 6.
+
+**Verified:** typecheck, all 14 tests and diff checks pass. Property tests use actual SQLite and cover migration from version 1, reopen persistence, stable IDs, Bangla/quoted values, invalid input, rejected writes, missing-ID updates and search. Android emulator interaction verified create/edit, validation, keyboard-open Save, keep/discard/system Back, search/clear, English fit and full process-restart persistence. Native Android/iOS files read as schema v2 with existing locale preserved. Visually reviewed a 320 × 568 / 1.3× text keyboard layout, then restored emulator settings. iOS launched the updated bundle, but property CRUD there remains unverified. Independent review found no outstanding issues. Expo's compatibility command used its offline local map. `npm run apk` built the updated 91,366,109-byte test-signed preview successfully in 1m 16s; existing Gradle deprecation warnings remain.
+
+**Learning/evidence:** [06 — House records and SQLite](../../learning-notes/06-properties-sqlite.md) explains state versus persistence, controlled fields, refs, async save, SQL parameters, migration, file flow and future parent IDs. [Step 5 evidence](evidence/step-5/README.md) contains screenshots and platform limits. Screen readers, iOS CRUD, physical-phone Step 5 offline testing, native error fault injection and older-user sessions remain manual checks. Spring Boot, floors/units, deletion and financial workflows were not started.
+
 ## Entry format for future checkpoints
 
 - Date and linked task:

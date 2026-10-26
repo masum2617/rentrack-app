@@ -2,6 +2,9 @@ import { useState } from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "../features/home/HomeScreen";
+import { PropertiesScreen } from "../features/properties/PropertiesScreen";
+import { PropertyForm } from "../features/properties/PropertyForm";
+import type { Property } from "../features/properties/propertyStore";
 import { useLocale } from "../i18n/LocaleProvider";
 import { colors } from "../theme/colors";
 import { BottomBar } from "./BottomBar";
@@ -30,6 +33,8 @@ const theme = {
 export function AppNavigator() {
   const { t } = useLocale();
   const [empty, setEmpty] = useState(false);
+  const [form, setForm] = useState<{ property?: Property }>();
+  const [propertyRevision, setPropertyRevision] = useState(0);
   return (
     <NavigationContainer theme={theme}>
       <Tab.Navigator
@@ -46,15 +51,24 @@ export function AppNavigator() {
           )}
         </Tab.Screen>
         <Tab.Screen name="Properties" options={{ title: t("properties") }}>
-          {({ navigation }) => (
-            <UnavailableScreen
-              title={t("properties")}
-              onHome={() => navigation.navigate("Home")}
+          {() => (
+            <PropertiesScreen
+              revision={propertyRevision}
+              onAdd={() => setForm({})}
+              onEdit={(property) => setForm({ property })}
             />
           )}
         </Tab.Screen>
         <Tab.Screen name="Home" options={{ title: t("home") }}>
-          {() => <HomeScreen empty={empty} />}
+          {({ navigation }) => (
+            <HomeScreen
+              empty={empty}
+              onAddProperty={() => {
+                navigation.navigate("Properties");
+                setForm({});
+              }}
+            />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Tenants" options={{ title: t("tenants") }}>
           {({ navigation }) => (
@@ -75,6 +89,16 @@ export function AppNavigator() {
           )}
         </Tab.Screen>
       </Tab.Navigator>
+      {form && (
+        <PropertyForm
+          property={form.property}
+          onClose={() => setForm(undefined)}
+          onSaved={() => {
+            setPropertyRevision((value) => value + 1);
+            setForm(undefined);
+          }}
+        />
+      )}
     </NavigationContainer>
   );
 }

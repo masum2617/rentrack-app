@@ -8,5 +8,5 @@ Assign one writer to migrations and to each shared sync/transport contract. Feat
 
 Keep authorization and private-record context throughout adapters and logs. Do not select a provider/version or claim secure storage, background delivery, backup, or restore works without implementation evidence.
 
-Current implemented storage is intentionally limited: Expo SQLite owns a versioned `device_preferences` schema and the Bangla/English locale preference. No financial/domain schema, endpoint, sync provider, backup, secure-storage or background-delivery capability is defined or implied.
+Current SQLite schema version 2 contains `device_preferences` and `properties`. Migration preserves existing locale data. Properties owns parameterized house reads/writes; platform owns connection and migrations. Local save means saved on this installation. Financial tables, endpoints, sync, backup and secure storage remain future work.
 

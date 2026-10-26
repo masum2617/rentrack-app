@@ -1,6 +1,6 @@
 # Step 5 plan: first local property workflow
 
-Status: Figma design draft ready for owner review; application code not started. Step 4 was confirmed complete by the owner. See [the Step 5 review](../design/properties-review.md).
+Status: owner authorized implementation; list and shared form implemented with SQLite schema v2. Verification is recorded in the [delivery log](../delivery-log.md). Step 4 was confirmed complete by the owner. See [the Step 5 review](../design/properties-review.md).
 
 ## Outcome
 
@@ -27,6 +27,8 @@ Properties owns record validation/read/write and screens under `src/features/pro
 Excluded: unit creation, occupancy/tenancy, financial totals, photos/documents, deletion/archive, owner/helper auth, server APIs, sync and backup. Add/edit is a private local learning slice; real shared or financial use still needs access/recovery foundations.
 
 ## Following slices
+
+Current return behavior stays within the approved two-screen slice: Save returns to the updated list; Edit opens the shared full-screen form. House rows have a labeled Edit control. Selecting a row to open house details, and routing a newly saved house there, belong to Step 6. The focused form uses a native full-screen Modal with tabs hidden; Android system Back and its visible Back share the dirty-form guard. Drafts are React state until Save, so force-closing before saving does not retain a draft.
 
 - Step 6: property detail → create named floors → add units under a floor. Unit details use structured counts for bedrooms, drawing rooms, total/attached bathrooms, balconies/facing, size in square feet and optional notes. Attached bathrooms are included in the total; precise facing scope remains to be settled during that design slice.
 - Step 7: tenant identity list/form.

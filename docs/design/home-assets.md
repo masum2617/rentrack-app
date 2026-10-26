@@ -19,3 +19,7 @@ Original vector-leaf SVG exports are bundled in assets/icons/home. SVG source an
 | emptyHome.svg | I6:1201;7758:11735 |
 
 Noto Sans and Noto Sans Bengali regular/medium/semibold TTFs were copied from the installed @expo-google-fonts packages into assets/fonts. Their SIL Open Font Licenses are retained there. App.tsx loads those local files before rendering the designed UI. The loading/font-error fallback uses the system font and initial Bangla language.
+
+## Step 5 property icons
+
+`assets/icons/properties/search.svg` and `back.svg` are original vector exports downloaded from the same file's Property review frames `40:365` and `40:432`, 27 October 2026. Source export paths ended in `5930c275-6e30-4cd4-a627-317ae0cc9119/6d89c.svg` and `1facdcca-670e-412b-9a15-45430ee29a19/ea523.svg`. Runtime uses bundled assets through AssetIcon, with no remote dependency. Native status bars and gesture areas are supplied by the OS rather than exported mock status graphics.

@@ -2,6 +2,16 @@ import { Image } from 'expo-image';
 import { View } from 'react-native';
 
 const icons = {
+  search: {
+    source: require('../../../assets/icons/properties/search.svg'),
+    width: 24,
+    height: 24,
+  },
+  back: {
+    source: require('../../../assets/icons/properties/back.svg'),
+    width: 24,
+    height: 24,
+  },
   meter: {
     source: require('../../../assets/icons/home/meter.svg'),
     width: 19.0,

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { DatabaseSync } from 'node:sqlite';
+import { connect } from './sqlite.mjs';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -10,33 +10,6 @@ import {
   writeLanguage,
 } from '../src/platform/database/languagePreference.ts';
 
-// Real SQLite with an async-shaped adapter; no mocked SQL results.
-function connect(path = ':memory:') {
-  const sqlite = new DatabaseSync(path);
-  const db = {
-    async execAsync(sql) {
-      sqlite.exec(sql);
-    },
-    async getFirstAsync(sql, ...params) {
-      return sqlite.prepare(sql).get(...params);
-    },
-    async runAsync(sql, ...params) {
-      return sqlite.prepare(sql).run(...params);
-    },
-    async withExclusiveTransactionAsync(task) {
-      sqlite.exec('BEGIN IMMEDIATE');
-      try {
-        await task(db);
-        sqlite.exec('COMMIT');
-      } catch (error) {
-        sqlite.exec('ROLLBACK');
-        throw error;
-      }
-    },
-  };
-  return { db, close: () => sqlite.close() };
-}
-
 test('first migration defaults to Bangla without inventing a saved choice', async () => {
   const connection = connect();
   try {
@@ -44,7 +17,7 @@ test('first migration defaults to Bangla without inventing a saved choice', asyn
     assert.equal(await readLanguage(connection.db), 'bn');
     assert.equal(
       (await connection.db.getFirstAsync('PRAGMA user_version')).user_version,
-      1,
+      2,
     );
     assert.equal(
       (
@@ -122,11 +95,11 @@ test('a newer schema fails safely without resetting its data or version', async 
   try {
     await migrateDatabase(connection.db);
     await writeLanguage(connection.db, 'en');
-    await connection.db.execAsync('PRAGMA user_version = 2');
+    await connection.db.execAsync('PRAGMA user_version = 3');
     await assert.rejects(migrateDatabase(connection.db), /newer app/);
     assert.equal(
       (await connection.db.getFirstAsync('PRAGMA user_version')).user_version,
-      2,
+      3,
     );
     assert.equal(await readLanguage(connection.db), 'en');
   } finally {

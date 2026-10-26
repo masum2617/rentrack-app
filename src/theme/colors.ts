@@ -7,6 +7,9 @@ export const colors = {
   sage: '#6B9870',
   selected: '#E7F1E5',
   line: '#DFE8DD',
+  inputBoundary: '#73847B',
+  error: '#A83232',
+  errorBackground: '#FFF2F0',
   overlay: 'rgba(27, 45, 32, 0.35)',
   softShadow: 'rgba(52, 81, 58, 0.07)',
 };

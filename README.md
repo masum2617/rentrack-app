@@ -2,7 +2,7 @@
 
 Working project for the landlord-operated Android/iOS application. Bangla is the default, English is fully supported, and everyday workflows must remain straightforward for younger adults and adults aged approximately 45–70.
 
-**Current checkpoint:** Step 3 — the reviewed Home, bilingual navigation and one durable device preference are implemented. Bangla remains the first-install default; the selected Bangla/English language is stored in SQLite and restored after a normal restart. Android and iOS restart evidence is in [Step 3 evidence](docs/evidence/step-3/README.md). Backend, real rental records and the standalone Android APK remain separate checkpoints.
+**Current checkpoint:** Step 5 — the Properties list and shared Add/Edit house form now use SQLite. Open **বাড়ি / Properties**, choose **নতুন বাড়ি / Add house**, enter a name/location and optional address, then save. Search and labeled Edit actions work with stored records. Bangla remains the default and the saved language preference is preserved by the schema upgrade. Home finances remain labeled sample data. Floors/units and backend/sync are later slices. See [the delivery log](docs/delivery-log.md) for verification and [the separate learning lesson](../learning-notes/06-properties-sqlite.md) for concepts and file flow.
 
 Start with [AGENTS.md](AGENTS.md), then the [documentation index](docs/README.md).
 
