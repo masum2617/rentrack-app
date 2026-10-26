@@ -1,0 +1,84 @@
+diff --git a/node_modules/expo-modules-core/android/build.gradle b/node_modules/expo-modules-core/android/build.gradle
+index 6aa9517..6711168 100644
+--- a/node_modules/expo-modules-core/android/build.gradle
++++ b/node_modules/expo-modules-core/android/build.gradle
+@@ -364,6 +364,54 @@ if (shouldTurnWarningsIntoErrors) {
+ // Generates minimal stub PCH files from an empty header so the IDE's C++ engine
+ // doesn't fail during sync. Near-instant unlike the full ExpoHeader.pch.
+ // The actual build regenerates proper PCH files via ninja.
++def splitCommandLine = { String command ->
++  def args = []
++  def currentArg = new StringBuilder()
++  boolean inDoubleQuotes = false
++  boolean inSingleQuotes = false
++  boolean isEscaped = false
++
++  for (int i = 0; i < command.length(); i++) {
++    char c = command.charAt(i)
++
++    if (isEscaped) {
++      currentArg.append(c)
++      isEscaped = false
++      continue
++    }
++
++    if (c == '\\' && !inSingleQuotes) {
++      isEscaped = true
++      continue
++    }
++
++    if (c == '"' && !inSingleQuotes) {
++      inDoubleQuotes = !inDoubleQuotes
++      continue
++    }
++
++    if (c == '\'' && !inDoubleQuotes) {
++      inSingleQuotes = !inSingleQuotes
++      continue
++    }
++
++    if (Character.isWhitespace(c) && !inDoubleQuotes && !inSingleQuotes) {
++      if (currentArg.length() > 0) {
++        args.add(currentArg.toString())
++        currentArg.setLength(0)
++      }
++    } else {
++      currentArg.append(c)
++    }
++  }
++
++  if (currentArg.length() > 0) {
++    args.add(currentArg.toString())
++  }
++
++  return args
++}
++
+ def cxxDir = project.file(".cxx")
+ def generateStubPCHTask = tasks.register("generateStubPCH") {
+   dependsOn("configureCMakeDebug")
+@@ -391,13 +439,18 @@ def generateStubPCHTask = tasks.register("generateStubPCH") {
+ 
+           def stubHeaderPath = stubHeader.absolutePath.replace('\\', '/')
+ 
+-          def cmd = entry.command
+-          // Replace the forced-include path: `-Xclang -include -Xclang <path>/cmake_pch.hxx`
+-            .replaceAll(/-Xclang -include -Xclang [^\s]+cmake_pch\.hxx(?=\s)/, Matcher.quoteReplacement("-Xclang -include -Xclang ${stubHeaderPath}"))
+-          // Replace the source file operand: `<path>/cmake_pch.hxx.cxx`
+-            .replaceAll(/[^\s]+cmake_pch\.hxx\.cxx/, Matcher.quoteReplacement(stubHeaderPath))
++          def cmdArgs = entry.arguments ? new ArrayList<String>(entry.arguments) : splitCommandLine(entry.command as String)
++
++          for (int i = 0; i < cmdArgs.size(); i++) {
++            def arg = cmdArgs[i]
++            if (arg.endsWith("cmake_pch.hxx.cxx") || arg.endsWith("cmake_pch.hxx")) {
++              cmdArgs[i] = stubHeaderPath
++            } else if (arg.contains("cmake_pch.hxx")) {
++              cmdArgs[i] = arg.replaceFirst(/.*cmake_pch\.hxx/, stubHeaderPath)
++            }
++          }
+ 
+-          def process = new ProcessBuilder(cmd.split(" ").toList())
++          def process = new ProcessBuilder(cmdArgs)
+             .directory(new File(entry.directory))
+             .redirectErrorStream(true)
+             .start()

@@ -4,9 +4,14 @@
   "private": true,
   "main": "index.ts",
   "scripts": {
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "start": "node scripts/mobile.mjs start",
+    "android": "node scripts/mobile.mjs android",
+    "ios": "node scripts/mobile.mjs ios",
+    "build:android": "node scripts/mobile.mjs build:android",
+    "build:ios": "node scripts/mobile.mjs build:ios",
+    "apk": "node scripts/mobile.mjs apk",
+    "devices": "node scripts/mobile.mjs check",
+    "postinstall": "patch-package --error-on-fail",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "check:dependencies": "expo install --check"
@@ -30,6 +35,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
+    "patch-package": "^8.0.1",
     "typescript": "~6.0.3"
   },
   "engines": {

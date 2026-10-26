@@ -1,12 +1,12 @@
 # Incremental implementation and learning roadmap
 
-Status: Step 3 complete, 24 October 2026. Reviewed green/white Home, raised center Home / হোম, bilingual radio selector, demo filters and empty Home are implemented. The selected language now persists in SQLite across verified Android and iOS restarts. Native builds/rendering and scoped checks are recorded in the delivery log. Next is Step 4: an installable Android preview. Backend connection remains deferred.
+Status: Steps 1–4 complete. The owner confirmed completion of the physical Android preview checkpoint after the verified APK build. Step 3 language persistence and native Home evidence remain recorded in the delivery log. Next proposed implementation is Step 5: local property list and add/edit property, delivered in small checkpoints. Backend connection remains deferred.
 
 ## Goal and scope of the first milestone
 
 Deliver a native Home screen the owner can run and inspect, with Bangla default/full English strings, the approved visual language and native-safe layout. Teach the runtime first, then one local persistence concept, before expanding into rental workflows.
 
-Confirmed test targets: Android emulator and iOS Simulator on the owner's Mac, plus an installable Android APK on their physical Android phone. The owner reports Android Studio and Xcode are installed; Android/iOS development toolchains and native launches were verified in Steps 1–2; physical Android and standalone signing/bundling remain unverified. Proposed first-run order: Android emulator → iOS Simulator → standalone Android phone build.
+Confirmed test targets: Android emulator and iOS Simulator on the owner's Mac, plus an installable Android APK on their physical Android phone. Android/iOS development toolchains and native launches have been verified; the APK build was verified locally and the owner subsequently confirmed Step 4 complete. Physical-device results are owner-reported rather than independently observed by the agent. Store distribution/signing remains a separate concern.
 
 Home metrics are explicitly labeled demo data at this stage. They are not an implementation of billing, cash collection, access control or portfolio accounting. The first meaningful SQLite write is a persisted locale preference; keep money fixtures separate from real business records.
 
@@ -30,7 +30,7 @@ Home metrics are explicitly labeled demo data at this stage. They are not an imp
 | 1. Expo boot — complete | Minimal compatible Expo/React Native/TypeScript project, preserved docs and folders, first native screen | Android emulator and iOS Simulator launch/screenshots; exact commands in README | Expo, native components, development server and fast refresh |
 | 2. Home UI — complete | Shared minimum tokens/components, readable Home with explicit demo data, locale switching and navigation shell | Visible native Home, both languages, narrow/large-text review | Components, props, state, layout and text |
 | 3. SQLite introduction — complete | Minimal schema migration and preference read/write behind local-storage boundary | Language restored after true Android/iOS restart; migration/write failures have safe UI handling | Tables, queries, persistent versus temporary state |
-| 4. Installable Android preview | Generate a signed test APK with bundled JavaScript/assets; install on physical Android | Launch with Metro stopped, airplane-mode review and locale persistence after normal restart | Preview versus development build, APK versus AAB, local storage lifetime |
+| 4. Installable Android preview — owner-confirmed complete | Generate a signed test APK with bundled JavaScript/assets; install on physical Android | Agent verified APK build; owner confirmed Step 4 device checkpoint complete | Preview versus development build, APK versus AAB, local storage lifetime |
 | Review before expansion | User tries Home; lesson and delivery evidence updated | Questions answered and next slice chosen | Explain the code/data flow before expansion |
 
 Home design preparation is complete. Further Figma screens or reopening the 56-frame prototype require their own requested scope. Design review and device verification answer different questions.
@@ -42,6 +42,12 @@ Prefer a local Android test-build path after checking the Mac's toolchain. Hoste
 Implement only Home as a real feature in the first milestone. Unbuilt destinations/actions must be honestly identified in development-only informational states, not dead controls, fake saves, or claimed working financial flows. They do not count as completed screens. The navigation owner determines the minimal shell consistent with the Home review.
 
 A runtime/visual test in a browser is supplementary; it does not establish Android/iOS behavior. Offline persistence testing must distinguish disconnecting an already loaded preview from cold-launching an independently installed build.
+
+## Next implementation: Step 5, local properties
+
+See [the Step 5 plan](work-items/local-properties.md). Deliver one real offline create/read/update flow: property list → add property → saved list → edit property. Begin with a small screen/form review, then the properties migration and read/write functions, then connected native screens and restart/failure checks. Preserve the existing language preference during migration.
+
+Do not add units, tenant links, accounting, deletion, accounts or backend/sync in this slice. Home financial fixtures remain explicitly marked demonstration data; do not blend stored property counts into fixture money. The follow-up unit slice introduces the parent/child relationship and meaningful unit counts.
 
 ## Recommended screen and feature sequence after Home
 
@@ -95,7 +101,7 @@ Read-only inspection found extra nested directories named mobile app under mobil
 
 ## Pending choices
 
-Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record the selected tooling and actual native results. React Navigation and SQLite-backed locale preference persistence are installed and implemented. Continue one checkpoint at a time; the next authorized slice should create and test a standalone Android preview APK.
+Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record the selected tooling and actual native results. React Navigation, SQLite-backed locale preference persistence and an APK build command are implemented. Step 4 is owner-confirmed complete. Continue one checkpoint at a time with the proposed local property slice; this plan does not start implementation.
 
 Official build references checked 23 October 2026: [Android APKs](https://docs.expo.dev/build-reference/apk/), [local release builds](https://docs.expo.dev/guides/local-app-production/), and [internal distribution](https://docs.expo.dev/build/internal-distribution/). These establish available workflows, not a completed build in this workspace.
 

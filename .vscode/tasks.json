@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Mobile: Android", "type": "npm", "script": "android", "problemMatcher": [] },
+    { "label": "Mobile: iOS", "type": "npm", "script": "ios", "problemMatcher": [] },
+    { "label": "Mobile: rebuild Android", "type": "npm", "script": "build:android", "problemMatcher": [] },
+    { "label": "Mobile: rebuild iOS", "type": "npm", "script": "build:ios", "problemMatcher": [] },
+    { "label": "Mobile: build test APK", "type": "npm", "script": "apk", "problemMatcher": [] },
+    { "label": "Mobile: check devices", "type": "npm", "script": "devices", "problemMatcher": [] }
+  ]
+}

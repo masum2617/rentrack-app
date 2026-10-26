@@ -113,6 +113,32 @@ Purpose: a concise, evidence-based account that another agent can resume and the
 
 **Next:** Step 4 is a standalone Android preview APK for physical-phone and Metro-independent launch testing, when requested.
 
+## 26 October 2026 — VS Code development workflow rechecked
+
+**Step 3 assessment:** complete. Inspected the committed SQLite language implementation and reran TypeScript plus all nine tests successfully in the confirmed moved project at `Mobile APP/house-rent-tracker/mobile-app`. The existing Step 3 restart evidence and external lesson remain available.
+
+**Developer workflow:** added `scripts/mobile.mjs`, explicit daily/rebuild/APK/device package commands and VS Code tasks. Daily `android`/`ios` commands launch Metro and the target device through Expo. `build:android`/`build:ios` handle first native installation or native dependency changes. `apk` runs `app:assembleRelease`. The helper supplies child-process SDK/Node/Java paths, respects explicit environment configuration, passes arguments without shell splitting and preserves child exit status. Global shell/IDE settings were not changed.
+
+**Owner's APK correction preserved:** recorded the already-working Expo Modules Core 58.0.24 stub-PCH quoted-path parser as `patches/expo-modules-core+58.0.24.patch`. Added `patch-package` and a failing-on-error postinstall hook; patch application passed. No generated native caches are included. Expo CLI is correctly nested under Expo; initial direct-root lookup was misleading, not a missing dependency.
+
+**Verified:** Android daily command started Pixel_6, opened the app and Metro bundled the Android source; MainActivity was foreground and the Bangla Home screenshot was visually checked. iOS initially reported the development app missing on the selected simulator; `npm run build:ios -- --device 'iPhone 17 Pro' --no-bundler` installed CocoaPods, rebuilt successfully with zero errors/two generated warnings, installed and loaded Home from Metro. The Bangla iOS Home screenshot was visually checked. `npm run apk` succeeded in 1m 51s and produced a fresh 91,345,225-byte release APK. Command syntax/help checks passed. Independent review found no critical/important defects; its minor device-diagnostic suggestion was fixed. Dependency installation reported five high audit entries; no forced remediation or clean-audit claim.
+
+**Learning:** [04a — VS Code workflow](../../learning-notes/04a-vscode-mobile-workflow.md). Step 4 remains the physical Android installation, cold launch with Metro stopped/airplane mode, and persisted-language check; a successful package build alone does not satisfy those device checks.
+
+## Owner confirmation — Step 4 and next-slice planning
+
+The owner reported Step 4 complete following the supplied APK installation/offline/restart instructions. The agent independently verified the APK build earlier; the physical-phone results are owner-confirmed rather than agent-observed. No new physical-device test or store release is claimed by this entry.
+
+Next proposed slice: [Step 5 local properties](work-items/local-properties.md), beginning with a focused list/form review and then a real SQLite create/read/update workflow. Units and tenants follow in separate checkpoints. This update records planning only; no property screens, migration, API or backend implementation was started.
+
+## 27 October 2026 — Step 5 property list/form design draft
+
+**Authorized result:** created the [editable property review board](design/properties-review.md) on a separate page of the existing Home Figma file. Two layout families: Property list and one shared Add/Edit house form. Bangla-first main screens have equivalent English instances and compact supporting state variants. The owner requested `নতুন বাড়ি` and `এডিট`; those exact labels are used. The form contains only house name, location and optional address.
+
+**Verified:** read-back confirmed 114 editable text nodes, 65 component instances, the two Noto font families and zero image-filled nodes. Visually inspected the board, repaired compact-state button clipping and gesture-indicator alignment, then checked the corrected render. Reused Home tokens, button and navigation assets; the Home review was preserved.
+
+**Limits/next:** static design review only, pending owner feedback. No application code, SQLite property migration, backend, floor/unit screens or native keyboard/persistence behavior was implemented. Agreed future structure is House → Named floor → Rental unit. [External design lesson](../../learning-notes/05-property-design-review.md).
+
 ## Entry format for future checkpoints
 
 - Date and linked task:
