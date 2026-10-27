@@ -59,5 +59,7 @@ TypeScript, Expo/React Native, React Navigation and Expo SQLite are selected for
 
 Step 5 adds the `properties` table in schema v2 and direct read/create/update functions in `src/features/properties/propertyStore.ts`. Numeric SQLite IDs are stable within this installation; future server/sync identity remains an explicit later contract. The feature owns required-field validation and trimming. Parameters bind user input separately from SQL. AppNavigator coordinates the full-screen form, list refresh and Home setup shortcut. No new state library, ORM or routing dependency was required.
 
+Step 6A adds the `floors` table in schema v3, with a house foreign key and a unique normalized name per house. Foreign keys are enabled before migration transactions. `floorStore.ts` owns direct list/create/update functions; updates include both IDs. A property-summary reader counts actual floor rows. Properties navigation now adds the native-stack package for list/details, while house/floor entry retains full-screen Modals. Route parameters contain house IDs; records are reloaded from SQLite. A local revision signals refresh without remounting the list, and detail success notices are scoped to the written house. Units remain unimplemented.
+
 The backend stack is accepted, but no server routes, DTOs, schema, or library versions are established by these documents.
 

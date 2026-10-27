@@ -4,7 +4,7 @@ Owner: src/features/properties. Read [domain guide](../domains/properties.md). P
 
 ## Screens and actions
 
-Implemented Step 5: whole-house list with search by name/location/address; explicit New house and Edit actions; one shared full-screen Add/Edit form with required name/location and optional multiline address. Save commits locally before returning to the list. Empty, no-match, loading and retry are distinct; failed saves keep input. A dirty Back asks to discard changes. Tabs stay visible on the list and are hidden in the form. Row selection/details and counts await Step 6. The broader screen inventory below describes later scope.
+Implemented through Step 6A: whole-house list with search and real floor totals, tappable identity and separate Edit; house details with named-floor list; shared house form and shared one-name floor form. New-house Save opens details; edits return to their origin. Floor Save commits locally before returning to updated house details. Parent house context is inherited and read-only. Empty, loading, missing records and retry remain distinct; errors preserve input, and dirty Back asks to discard. Tabs remain visible for list/details and are hidden by forms. Units have an explicit next-step message rather than a false count or working destination. The broader screen inventory below describes later scope.
 
 - Property list: name/location, occupied/vacant counts and clear selection; Add property for setup.
 - Property detail: identity, unit list and direct Electricity entry. Unit labels distinguish floors/locations.

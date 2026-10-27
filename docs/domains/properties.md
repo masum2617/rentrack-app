@@ -2,7 +2,7 @@
 
 Owner path: src/features/properties. Source rules: product requirements §4 and §5.1.
 
-Own property identity/location and unit label/floor/notes. A property contains units; occupancy is associated with dated tenancies, not a destructive tenant field replacement. Preserve earlier tenancy links when a unit becomes vacant.
+Own property identity/location, named floors linked to their house, and future units linked to a selected floor. Step 6A stores house/floor records only. Floor names are unique within a house after normalization, and their order follows creation. Occupancy is associated with dated tenancies, not a destructive tenant field replacement. Preserve earlier tenancy links when a unit becomes vacant.
 
 Expose scoped property/unit summaries and selection inputs. Starting/ending a tenancy is coordinated with Tenancies; meter/reading behavior belongs to Electricity. Property-wide rollups read Ledger/Reporting results.
 

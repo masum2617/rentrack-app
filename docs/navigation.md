@@ -24,7 +24,7 @@ Keep tab positions stable across language, occupancy, and permissions. An empty 
 
 ## Routes and return behavior
 
-A single navigation owner maintains the eventual route registry, entry parameters, access guards, and deep-link handling. No concrete router library or route IDs are implemented yet. Feature agents provide screens and requested entries; they do not each create another application navigator.
+A single navigation owner maintains the route registry and entry parameters. The app uses React Navigation bottom tabs, with a native stack for Properties list/details. Feature screens consume that navigation instead of adding a second routing system. Access guards and deep-link handling remain future work.
 
 Each destination retains its navigation and list/filter state. Detail links preserve the source and return predictably. Full-screen focused financial flows can temporarily cover primary navigation, with visible Back/Cancel and safe draft handling. Native system/back-swipe behavior remains consistent.
 
@@ -42,3 +42,7 @@ Electricity lives under property → main meter, with Home and bill-review short
 ## Step 2 implementation
 
 One React Navigation bottom-tabs navigator starts at Home and renders a custom raised-center bar. Tapping the active Home returns its scroll view to the top. Other tabs show an explicit unavailable view with return-to-Home. More exposes sample/empty controls only under __DEV__. These are navigation scaffolding, not delivered Ledger/Property/Tenant/Settings workflows. Locale and Home filter state are preserved during ordinary tab switches. See localization-accessibility.md for the tab-label scaling compromise.
+
+## Step 6A implementation
+
+Properties now contains HouseList → HouseDetails in a two-screen native stack. Details receives a house ID and reads its current records. House/floor forms use full-screen Modals covering the tabs, with guarded Back and keyboard-aware entry. New-house Save opens details; house edits return to their originating list/details; floor Save returns to the same house's refreshed floor list. List search/scroll survives ordinary detail navigation. Home's setup shortcut enters the same house-create flow. Unit actions show an explicit next-step message. Ledger, Tenants and the broader More workflows remain scaffolding.

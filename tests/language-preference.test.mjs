@@ -17,7 +17,7 @@ test('first migration defaults to Bangla without inventing a saved choice', asyn
     assert.equal(await readLanguage(connection.db), 'bn');
     assert.equal(
       (await connection.db.getFirstAsync('PRAGMA user_version')).user_version,
-      2,
+      6,
     );
     assert.equal(
       (
@@ -95,11 +95,11 @@ test('a newer schema fails safely without resetting its data or version', async 
   try {
     await migrateDatabase(connection.db);
     await writeLanguage(connection.db, 'en');
-    await connection.db.execAsync('PRAGMA user_version = 3');
+    await connection.db.execAsync('PRAGMA user_version = 7');
     await assert.rejects(migrateDatabase(connection.db), /newer app/);
     assert.equal(
       (await connection.db.getFirstAsync('PRAGMA user_version')).user_version,
-      3,
+      7,
     );
     assert.equal(await readLanguage(connection.db), 'en');
   } finally {

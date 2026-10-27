@@ -1,6 +1,6 @@
 # Incremental implementation and learning roadmap
 
-Status: Steps 1–4 complete; Step 5 house list and shared Add/Edit form implemented with SQLite. The owner confirmed the earlier physical Android preview checkpoint. Step 5 evidence and platform limits are in the delivery log. Next is the Step 6 house-details/named-floor/unit design slice. Backend connection remains deferred.
+Status: Steps 1–5 implemented; Step 6A adds house details and named-floor create/edit with SQLite. The delivery log records actual verification and platform limits. Next is the unit list/form design and implementation slice. Backend connection remains deferred.
 
 ## Goal and scope of the first milestone
 
@@ -50,6 +50,8 @@ See [the Step 5 work item](work-items/local-properties.md). Implemented property
 Do not add units, tenant links, accounting, deletion, accounts or backend/sync in this slice. Home financial fixtures remain explicitly marked demonstration data; do not blend stored property counts into fixture money. The follow-up unit slice introduces the parent/child relationship and meaningful unit counts.
 
 ## Recommended screen and feature sequence after Home
+
+Step 6A now implements house details and named floors: [work item](work-items/local-floors.md). Floor totals are queried; units remain unavailable. Continue with the unit slice before displaying unit counts or occupancy.
 
 | Order | Slice | Why it comes here |
 |---|---|---|
@@ -101,7 +103,7 @@ Read-only inspection found extra nested directories named mobile app under mobil
 
 ## Pending choices
 
-Test targets and the latest Home layout are confirmed above. Installed SDK/library versions live in package.json and package-lock.json; the README and delivery log record actual results. Local house creation/editing and locale persistence are implemented. Next, review house-details/floor/unit forms before implementing Step 6.
+Test targets and the latest Home layout are confirmed above. Installed versions live in package.json and package-lock.json; the delivery log records actual results. House details and named-floor creation/editing are implemented. Plan the unit fields and review their rough layout next; Figma remains paused until explicitly requested.
 
 Official build references checked 23 October 2026: [Android APKs](https://docs.expo.dev/build-reference/apk/), [local release builds](https://docs.expo.dev/guides/local-app-production/), and [internal distribution](https://docs.expo.dev/build/internal-distribution/). These establish available workflows, not a completed build in this workspace.
 

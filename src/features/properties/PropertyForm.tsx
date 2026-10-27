@@ -35,7 +35,7 @@ export function PropertyForm({
 }: {
   property?: Property;
   onClose: () => void;
-  onSaved: () => void;
+  onSaved: (propertyId: number) => void;
 }) {
   const { t } = useLocale();
   const [initial] = useState<PropertyInput>(() => ({
@@ -83,17 +83,20 @@ export function PropertyForm({
     }
     inFlight.current = true;
     setStatus('saving');
+    let savedId: number;
     try {
       const db = await getDatabase();
-      if (property) await updateProperty(db, property.id, input);
-      else await createProperty(db, input);
+      if (property) {
+        await updateProperty(db, property.id, input);
+        savedId = property.id;
+      } else savedId = await createProperty(db, input);
     } catch {
       setStatus('error');
       inFlight.current = false;
       return;
     }
     // Only close after the SQLite statement has completed successfully.
-    onSaved();
+    onSaved(savedId);
   }
 
   return (

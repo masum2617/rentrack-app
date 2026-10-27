@@ -1,8 +1,21 @@
 import { useState } from "react";
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import {
+  DefaultTheme,
+  NavigationContainer,
+  useNavigationContainerRef,
+  type NavigatorScreenParams,
+} from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "../features/home/HomeScreen";
-import { PropertiesScreen } from "../features/properties/PropertiesScreen";
+import {
+  PropertiesNavigator,
+  type PropertyRoutes,
+  type PropertyNotice,
+} from "./PropertiesNavigator";
+import { FloorForm } from "../features/properties/FloorForm";
+import { UnitForm } from '../features/properties/UnitForm';
+import type { Unit } from '../features/properties/unitStore';
+import type { Floor } from "../features/properties/floorStore";
 import { PropertyForm } from "../features/properties/PropertyForm";
 import type { Property } from "../features/properties/propertyStore";
 import { useLocale } from "../i18n/LocaleProvider";
@@ -12,7 +25,7 @@ import { UnavailableScreen } from "./UnavailableScreen";
 
 type Tabs = {
   Ledger: undefined;
-  Properties: undefined;
+  Properties: NavigatorScreenParams<PropertyRoutes> | undefined;
   Home: undefined;
   Tenants: undefined;
   More: undefined;
@@ -34,9 +47,16 @@ export function AppNavigator() {
   const { t } = useLocale();
   const [empty, setEmpty] = useState(false);
   const [form, setForm] = useState<{ property?: Property }>();
+  const [floorForm, setFloorForm] = useState<{
+    property: Property;
+    floor?: Floor;
+  }>();
+  const [notice, setNotice] = useState<PropertyNotice>();
+  const [unitForm, setUnitForm] = useState<{ property: Property; floor: Floor; unit?: Unit }>();
+  const navigationRef = useNavigationContainerRef<Tabs>();
   const [propertyRevision, setPropertyRevision] = useState(0);
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={theme} ref={navigationRef}>
       <Tab.Navigator
         initialRouteName="Home"
         tabBar={(props) => <BottomBar {...props} />}
@@ -52,10 +72,17 @@ export function AppNavigator() {
         </Tab.Screen>
         <Tab.Screen name="Properties" options={{ title: t("properties") }}>
           {() => (
-            <PropertiesScreen
+            <PropertiesNavigator
               revision={propertyRevision}
+              notice={notice}
               onAdd={() => setForm({})}
               onEdit={(property) => setForm({ property })}
+              onAddFloor={(property) => setFloorForm({ property })}
+              onEditFloor={(property, floor) =>
+                setFloorForm({ property, floor })
+              }
+              onAddUnit={(property, floor) => setUnitForm({ property, floor })}
+              onEditUnit={(property, floor, unit) => setUnitForm({ property, floor, unit })}
             />
           )}
         </Tab.Screen>
@@ -64,7 +91,7 @@ export function AppNavigator() {
             <HomeScreen
               empty={empty}
               onAddProperty={() => {
-                navigation.navigate("Properties");
+                navigation.navigate("Properties", { screen: "HouseList" });
                 setForm({});
               }}
             />
@@ -93,12 +120,40 @@ export function AppNavigator() {
         <PropertyForm
           property={form.property}
           onClose={() => setForm(undefined)}
-          onSaved={() => {
+          onSaved={(propertyId) => {
             setPropertyRevision((value) => value + 1);
+            setNotice({ message: "houseSaved", propertyId });
+            if (!form.property)
+              navigationRef.navigate("Properties", {
+                screen: "HouseDetails",
+                params: { propertyId },
+                initial: false,
+              });
             setForm(undefined);
           }}
         />
       )}
+      {floorForm && (
+        <FloorForm
+          property={floorForm.property}
+          floor={floorForm.floor}
+          onClose={() => setFloorForm(undefined)}
+          onSaved={() => {
+            setPropertyRevision((value) => value + 1);
+            setNotice({
+              message: "floorSaved",
+              propertyId: floorForm.property.id,
+              floorId: floorForm.floor?.id,
+            });
+            setFloorForm(undefined);
+          }}
+        />
+      )}
+      {unitForm && <UnitForm property={unitForm.property} floor={unitForm.floor} unit={unitForm.unit} onClose={() => setUnitForm(undefined)} onSaved={() => {
+        setPropertyRevision((value) => value + 1);
+        setNotice({ message: 'unitSaved', propertyId: unitForm.property.id, floorId: unitForm.floor.id });
+        setUnitForm(undefined);
+      }} />}
     </NavigationContainer>
   );
 }

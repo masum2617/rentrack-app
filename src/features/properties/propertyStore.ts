@@ -7,6 +7,7 @@ export type PropertyInput = {
 };
 
 export type Property = PropertyInput & { id: number };
+export type PropertySummary = Property & { floorCount: number; unitCount: number };
 export type PropertyErrors = Partial<Record<'name' | 'location', true>>;
 
 export function validateProperty(input: PropertyInput): PropertyErrors {
@@ -23,7 +24,10 @@ function prepareInput(input: PropertyInput) {
   return [input.name.trim(), input.location.trim(), input.address.trim()];
 }
 
-export function filterProperties(properties: Property[], search: string) {
+export function filterProperties<T extends Property>(
+  properties: T[],
+  search: string,
+) {
   const query = search.trim().normalize('NFC').toLowerCase();
   return properties.filter((property) =>
     [property.name, property.location, property.address].some((value) =>
@@ -36,6 +40,29 @@ export async function listProperties(db: SQLiteDatabase): Promise<Property[]> {
   return db.getAllAsync<Property>(
     'SELECT id, name, location, address FROM properties ORDER BY id DESC',
   );
+}
+
+export async function getProperty(
+  db: SQLiteDatabase,
+  id: number,
+): Promise<Property | undefined> {
+  return (
+    (await db.getFirstAsync<Property>(
+      'SELECT id, name, location, address FROM properties WHERE id = ?',
+      id,
+    )) ?? undefined
+  );
+}
+
+export async function listPropertySummaries(
+  db: SQLiteDatabase,
+): Promise<PropertySummary[]> {
+  return db.getAllAsync<PropertySummary>(`
+    SELECT p.id, p.name, p.location, p.address,
+      (SELECT count(*) FROM floors f WHERE f.property_id = p.id) AS floorCount,
+      (SELECT count(*) FROM units u JOIN floors f ON f.id = u.floor_id WHERE f.property_id = p.id) AS unitCount
+    FROM properties p ORDER BY p.id DESC
+  `);
 }
 
 export async function createProperty(db: SQLiteDatabase, input: PropertyInput) {

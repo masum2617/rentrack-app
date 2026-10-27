@@ -149,6 +149,28 @@ Next proposed slice: [Step 5 local properties](work-items/local-properties.md), 
 
 **Learning/evidence:** [06 — House records and SQLite](../../learning-notes/06-properties-sqlite.md) explains state versus persistence, controlled fields, refs, async save, SQL parameters, migration, file flow and future parent IDs. [Step 5 evidence](evidence/step-5/README.md) contains screenshots and platform limits. Screen readers, iOS CRUD, physical-phone Step 5 offline testing, native error fault injection and older-user sessions remain manual checks. Spring Boot, floors/units, deletion and financial workflows were not started.
 
+## 27 October 2026 — Bangla house-details and floor design
+
+**Design-only result:** added `03 · House details & floors · বাংলা` to the existing Figma file. [Review board](design/house-floors-review.md) contains populated and empty house details, one shared floor form and compact Edit/validation/save/loading/retry/unsaved-change examples. The form has one required floor name and inherited read-only house context. Existing green/white tokens, Noto typography, shadows and navigation are reused. No separate English layout was created, per the owner's request.
+
+**Verification/limit:** visually inspected the render and repaired text wrapping/height, auto-layout overlap and Back targets. Read-back found 79 text nodes, 47 instances, zero image-filled nodes and 48 × 48 Back controls. Main layouts are ready for review. One supporting loading description still has retry copy; the precise correction is in the review document. Figma's Starter-plan MCP limit rejected the final correction attempt. No application/database code or working floor/unit flow was added. [External learning note](../../learning-notes/07-house-floors-design.md).
+
+## 27 October 2026 — Step 6A house details and floors
+
+**Delivered:** connected house list → details → shared Add/Edit floor form, with SQLite-backed named floors. House identity opens details while Edit stays separate; new-house Save opens details and house edits return to their origin. List rows show actual floor totals and the agreed units-not-added message. Floors keep creation order, reject normalized duplicate names within their house and retain their parent/ID when renamed. Unit actions explain the following slice. Bangla and English strings, dirty Back, keyboard-safe forms, retained-input retry and house-scoped success feedback are implemented.
+
+**Structure:** added the small React Navigation native-stack package for list/details inside Properties; existing full-screen Modals remain for forms. Schema v3 adds floor foreign keys and per-house unique name keys, preserving house/locale data. Foreign keys are enabled before migration transactions. Feature-owned direct SQL and a one-query property-summary reader avoid stored counters, generic repositories or a new state library. No Figma access, unit records, backend, sync, deletion, reordering or financial changes were made.
+
+**Verified:** final typecheck, 20 real-SQLite tests and diff checks pass. Android UI verified new-house return, empty/required/duplicate states, add/rename, dirty keep/discard/system Back, keyboard Save, real counts, preserved search and process-restart persistence. English house edits returned to both origin screens correctly. Narrow/enlarged text was checked and emulator settings restored. Native Android/iOS files reached schema v3 with locale preserved; iOS CRUD/gestures remain manual. Follow-up code review passed after correcting notice scope and minimum touch height. Expo's compatibility check used its offline map. The final APK built in 11s, 91,403,709 bytes, with existing Gradle warnings. A separate app occupied 8081, so verification used Metro 8082 without stopping it.
+
+**Learning/evidence:** [08 — Connecting houses and floors](../../learning-notes/08-house-floors-sqlite.md) explains parent/child IDs, foreign keys, duplicate keys, navigation, refresh and count queries. [Step 6A evidence](evidence/step-6a/README.md) records screenshots, the ADB development-keyboard shortcut issue and verification limits. Next is the unit-list/form planning slice; screen readers, iOS interaction and physical-phone Step 6A checks remain unverified.
+
+## 27 October 2026 — Floor code and schema-v4 correction
+
+Reproduced `no such column: floor_code_name` against an existing v3-shaped database. Editing its original CREATE TABLE block had not upgraded installed tables. Added a transactional v4 table rebuild, copying existing floor IDs, parent links, names and timestamps before dropping/renaming. It also preserves experimental code values on v3 databases that already have the column. Connected code values through Create/Read/Edit, fixed shared input refs/name-error placement and included code-only edits in the unsaved guard. The code remains optional and trimmed.
+
+Three new real-SQLite tests failed before the correction; all 23 tests and typecheck passed afterward. No native interaction test, APK rebuild or Figma work was performed for this focused fix. A full app close/reopen is needed to run startup migration against an existing connection. [External lesson](../../learning-notes/09-floor-code-migration.md).
+
 ## Entry format for future checkpoints
 
 - Date and linked task:

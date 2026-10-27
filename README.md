@@ -2,7 +2,7 @@
 
 Working project for the landlord-operated Android/iOS application. Bangla is the default, English is fully supported, and everyday workflows must remain straightforward for younger adults and adults aged approximately 45–70.
 
-**Current checkpoint:** Step 5 — the Properties list and shared Add/Edit house form now use SQLite. Open **বাড়ি / Properties**, choose **নতুন বাড়ি / Add house**, enter a name/location and optional address, then save. Search and labeled Edit actions work with stored records. Bangla remains the default and the saved language preference is preserved by the schema upgrade. Home finances remain labeled sample data. Floors/units and backend/sync are later slices. See [the delivery log](docs/delivery-log.md) for verification and [the separate learning lesson](../learning-notes/06-properties-sqlite.md) for concepts and file flow.
+**Current checkpoint:** Step 6A — open a house from **বাড়ি / Properties**, then add or edit its named floors. New houses open their details after saving; editing returns to the originating screen. SQLite stores the records and supplies actual floor totals. Duplicate floor names within one house are rejected. Units display **এখনো যোগ করা হয়নি** until that next slice. Bangla/English support remains complete and Home finances remain labeled sample data. See [the delivery log](docs/delivery-log.md), [floor workflow](docs/work-items/local-floors.md) and [separate learning lesson](../learning-notes/08-house-floors-sqlite.md).
 
 Start with [AGENTS.md](AGENTS.md), then the [documentation index](docs/README.md).
 

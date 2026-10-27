@@ -28,6 +28,8 @@ Excluded: unit creation, occupancy/tenancy, financial totals, photos/documents, 
 
 ## Following slices
 
+Step 6A has now implemented house details and named floors: [current flow](local-floors.md). It supersedes the Step 5 return behavior below for newly created houses, which now open details after saving. Editing still returns to its originating screen. Units remain the following slice.
+
 Current return behavior stays within the approved two-screen slice: Save returns to the updated list; Edit opens the shared full-screen form. House rows have a labeled Edit control. Selecting a row to open house details, and routing a newly saved house there, belong to Step 6. The focused form uses a native full-screen Modal with tabs hidden; Android system Back and its visible Back share the dirty-form guard. Drafts are React state until Save, so force-closing before saving does not retain a draft.
 
 - Step 6: property detail → create named floors → add units under a floor. Unit details use structured counts for bedrooms, drawing rooms, total/attached bathrooms, balconies/facing, size in square feet and optional notes. Attached bathrooms are included in the total; precise facing scope remains to be settled during that design slice.

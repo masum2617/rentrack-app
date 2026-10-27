@@ -4,6 +4,7 @@ import {
   TextInput,
   View,
   type TextInputInstance,
+  type KeyboardTypeOptions,
 } from 'react-native';
 import { useLocale } from '../../i18n/LocaleProvider';
 import { AppText } from '../../shared/ui/AppText';
@@ -20,6 +21,8 @@ export function PropertyField({
   multiline = false,
   editable,
   onSubmitEditing,
+  returnKeyType = 'next',
+  keyboardType = 'default',
 }: {
   label: string;
   value: string;
@@ -30,6 +33,8 @@ export function PropertyField({
   multiline?: boolean;
   editable: boolean;
   onSubmitEditing?: () => void;
+  returnKeyType?: 'next' | 'done';
+  keyboardType?: KeyboardTypeOptions;
 }) {
   const { locale } = useLocale();
   const [focused, setFocused] = useState(false);
@@ -46,9 +51,10 @@ export function PropertyField({
         placeholder={placeholder}
         placeholderTextColor={colors.muted}
         editable={editable}
+        keyboardType={keyboardType}
         multiline={multiline}
         textAlignVertical={multiline ? 'top' : 'center'}
-        returnKeyType={multiline ? 'default' : 'next'}
+        returnKeyType={multiline ? 'default' : returnKeyType}
         submitBehavior={multiline ? 'newline' : 'submit'}
         onSubmitEditing={onSubmitEditing}
         selectionColor={colors.brand}

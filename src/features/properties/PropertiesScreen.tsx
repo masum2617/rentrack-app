@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocale } from "../../i18n/LocaleProvider";
+import type { MessageKey } from "../../i18n/messages";
 import { getDatabase } from "../../platform/database/database";
 import { AppText } from "../../shared/ui/AppText";
 import { AssetIcon } from "../../shared/ui/AssetIcon";
@@ -19,23 +20,28 @@ import { fontFamilies } from "../../theme/typography";
 import { PropertyRow } from "./PropertyRow";
 import {
   filterProperties,
-  listProperties,
+  listPropertySummaries,
   type Property,
+  type PropertySummary,
 } from "./propertyStore";
 
 type ListState =
   | { status: "loading" }
   | { status: "error" }
-  | { status: "ready"; properties: Property[] };
+  | { status: "ready"; properties: PropertySummary[] };
 
 export function PropertiesScreen({
   revision,
   onAdd,
   onEdit,
+  onOpen,
+  notice,
 }: {
   revision: number;
   onAdd: () => void;
   onEdit: (property: Property) => void;
+  onOpen: (propertyId: number) => void;
+  notice?: MessageKey;
 }) {
   const { locale, t } = useLocale();
   const { width, fontScale } = useWindowDimensions();
@@ -47,7 +53,7 @@ export function PropertiesScreen({
     let active = true;
     async function load() {
       try {
-        const properties = await listProperties(await getDatabase());
+        const properties = await listPropertySummaries(await getDatabase());
         if (active) setState({ status: "ready", properties });
       } catch {
         if (active) setState({ status: "error" });
@@ -109,13 +115,13 @@ export function PropertiesScreen({
             </AppText>
           </Pressable>
         )}
-        {revision > 0 && (
+        {notice && (
           <AppText
             variant="label"
             color={colors.brand}
             accessibilityLiveRegion="polite"
           >
-            {t("houseSaved")}
+            {t(notice)}
           </AppText>
         )}
         <FlatList
@@ -125,7 +131,13 @@ export function PropertiesScreen({
           keyboardDismissMode="on-drag"
           contentContainerStyle={styles.list}
           renderItem={({ item }) => (
-            <PropertyRow property={item} onEdit={onEdit} />
+            <PropertyRow
+              property={item}
+              onEdit={onEdit}
+              onOpen={() => onOpen(item.id)}
+              floorCount={item.floorCount}
+              unitCount={item.unitCount}
+            />
           )}
           ListEmptyComponent={
             <View style={styles.state}>

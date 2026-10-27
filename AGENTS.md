@@ -13,7 +13,7 @@ Completion of preparation means the affected rule, screen purpose, dependencies,
 
 ## Product guardrails
 
-- Use Property → rental unit → tenancy; preserve tenant identity and past rental history.
+- Use Property → named floor → rental unit → tenancy; preserve tenant identity and past rental history.
 - Keep amount due, notice-period advance, rent prepayment, and electricity credit distinct.
 - Record actual receipts separately from contributions, advance applications, waivers, and refunds. Use the same underlying charge balance across screens.
 - Preserve finalized historical terms and explain financial changes.
@@ -36,5 +36,5 @@ Run the checks relevant to the actual change using [verification](docs/verificat
 
 Existing user authorization carries forward. Do not add per-screen approval gates or repeat approved direction/language questions. New work remains limited to what the user requested; commits, publication, deployment, and messages to others require their applicable authorization.
 
-Current baseline: Step 5 local house list/create/edit plus the bilingual Home demo and persisted locale. Read the README and delivery log for commands and evidence. Step 6 introduces house details, named floors and units; backend, financial workflows and sync remain later slices.
+Current baseline: Step 6A local house details, named-floor create/edit and actual floor totals, plus bilingual Home demo and persisted locale. Read the README and delivery log for commands/evidence. Units, backend, financial workflows and sync remain later slices. Figma access/changes remain paused until the owner explicitly requests them.
 
