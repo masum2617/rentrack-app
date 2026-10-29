@@ -12,3 +12,17 @@ The coordinator creates one short task file per substantive slice using [the tem
 
 Only the coordinator edits this index during parallel work. Contributors update their own task file. Add a linked row with status, owner, and dependencies when a real task is assigned; avoid maintaining a second copy of the specification here.
 
+
+- [Step 7: local tenants](local-tenants.md) — independent identity, directory/search and shared Add/Edit form; verification status is recorded there.
+
+- [Step 8: local tenancies](local-tenancies.md) — unit details, existing-tenant setup, exact terms, corrections and occupancy; native/test verification pending.
+
+- [Occupancy summaries and tenant context](occupancy-context.md) — Step 8 follow-up: active locations, rented-unit counts, linked editor and residence duration; static checks only.
+
+- [Step 9A: local rent bills](local-rent-bills.md) — persistent drafts, review/finalize, void/reissue and derived rent dues; static checks only.
+
+- [Step 9B: additional charges](additional-charges.md) — effective-month settings, fixed/manual proposals, one-offs and derived all-line dues; static checks only.
+
+- [Step 10A: local payments](local-payments.md) — recorded money, allocation, receipt/history, reversal and shared remaining balances; cases/native acceptance pending.
+
+- [Step 10B: live Home](live-home.md) — SQLite summaries, real filters/attention and scoped Home payment entry; regression/native acceptance pending.

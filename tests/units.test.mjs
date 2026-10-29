@@ -92,7 +92,7 @@ test('v4 upgrade preserves houses, floor codes, language and starts with no unit
   const c = connect();
   try {
     await migrateDatabase(c.db); const { houseId, floorId } = await parents(c.db);
-    await writeLanguage(c.db, 'en'); await c.db.execAsync('DROP TABLE units; PRAGMA user_version = 4');
+    await writeLanguage(c.db, 'en'); await c.db.execAsync('DROP TABLE payment_allocations; DROP TABLE payments; DROP TABLE tenancy_charge_versions; DROP TABLE bill_lines; DROP TABLE bills; DROP TABLE tenancies; DROP TABLE tenants; DROP TABLE units; PRAGMA user_version = 4');
     await migrateDatabase(c.db);
     assert.equal(await readLanguage(c.db), 'en'); assert.equal((await getFloor(c.db, houseId, floorId)).floorCodeName, 'F1');
     assert.deepEqual(await listUnits(c.db, floorId), []);
@@ -113,7 +113,7 @@ test('v5 forward upgrade keeps existing unit records and accepts unknown sizes',
       bedrooms INTEGER NOT NULL, drawing_rooms INTEGER NOT NULL, total_bathrooms INTEGER NOT NULL,
       attached_bathrooms INTEGER NOT NULL, balconies INTEGER NOT NULL, notes TEXT NOT NULL,
       created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(floor_id,name_key));
-      INSERT INTO units_old SELECT * FROM units; DROP TABLE units; ALTER TABLE units_old RENAME TO units; PRAGMA user_version = 5;`);
+      INSERT INTO units_old SELECT * FROM units; DROP TABLE payment_allocations; DROP TABLE payments; DROP TABLE tenancy_charge_versions; DROP TABLE bill_lines; DROP TABLE bills; DROP TABLE tenancies; DROP TABLE tenants; DROP TABLE units; ALTER TABLE units_old RENAME TO units; PRAGMA user_version = 5;`);
     await migrateDatabase(c.db);
     assert.equal((await listUnits(c.db, floorId))[0].id, id); assert.equal((await listUnits(c.db, floorId))[0].sizeSqFt, 500.5);
     await updateUnit(c.db, floorId, id, { ...input, sizeSqFt: '' });

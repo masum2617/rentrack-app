@@ -7,7 +7,11 @@ export type PropertyInput = {
 };
 
 export type Property = PropertyInput & { id: number };
-export type PropertySummary = Property & { floorCount: number; unitCount: number };
+export type PropertySummary = Property & {
+  floorCount: number;
+  unitCount: number;
+  rentedUnitCount: number;
+};
 export type PropertyErrors = Partial<Record<'name' | 'location', true>>;
 
 export function validateProperty(input: PropertyInput): PropertyErrors {
@@ -60,7 +64,9 @@ export async function listPropertySummaries(
   return db.getAllAsync<PropertySummary>(`
     SELECT p.id, p.name, p.location, p.address,
       (SELECT count(*) FROM floors f WHERE f.property_id = p.id) AS floorCount,
-      (SELECT count(*) FROM units u JOIN floors f ON f.id = u.floor_id WHERE f.property_id = p.id) AS unitCount
+      (SELECT count(*) FROM units u JOIN floors f ON f.id = u.floor_id WHERE f.property_id = p.id) AS unitCount,
+      (SELECT count(*) FROM tenancies t JOIN units u ON u.id=t.unit_id JOIN floors f ON f.id=u.floor_id
+        WHERE f.property_id=p.id AND t.ended_on IS NULL) AS rentedUnitCount
     FROM properties p ORDER BY p.id DESC
   `);
 }

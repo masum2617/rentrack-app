@@ -63,3 +63,31 @@ Step 6A adds the `floors` table in schema v3, with a house foreign key and a uni
 
 The backend stack is accepted, but no server routes, DTOs, schema, or library versions are established by these documents.
 
+
+## Step 7 local tenant boundary
+
+Tenants owns its parameterized SQLite reads/writes and identity UI. AppNavigator coordinates form visibility, save feedback and a tenant-only refresh counter. `shared/ui/FormField.tsx` is the existing property input promoted for cross-domain reuse; PropertyField re-exports it to preserve current consumers. No ORM, API client, global state library or extra runtime dependency was added. Schema v7 appends tenants without changing house/floor/unit records or language preferences.
+
+## Step 8 tenancy boundary
+
+Tenancies owns the local tenant/unit link, terms validation/storage, setup/correction UI and occupancy projection. Properties consumes its current-rental/occupancy readers. Shared `paisa` helpers parse/format exact integer money without deciding advance allocation or financial policy. Navigation owns ID routes and form visibility. Schema v8 appends the tenancy table and one-open-unit partial unique index; tenant identity remains separate. No financial engine or generic repository framework was added.
+
+## Occupancy read models
+
+Tenancies owns joined active rental context; Properties consumes occupancy and queried counts, while `tenantReadModel` combines identity with batched rental reads. The tenant editor separates ID loading/one Modal from draft ownership, exposing only a dirty-close handle to the Modal's native Back callback. Residence duration is pure calendar calculation. Read models are projections, not duplicate tables; schema remains v8. Both property and tenant save revisions invalidate mounted tenant/location views.
+
+## Step 9A Ledger and transactions
+
+Ledger owns pure bill proposals, reviewed amounts, state transitions, snapshots and outstanding projections. Bills/lines in schema v9 avoid an independently editable balance; 9A posts only rent. Tenancies consumes Ledger's finalized-bill guard inside an atomic correction transaction. App opening adapts the exclusive transaction entry point to a dedicated initialized connection (foreign keys before BEGIN IMMEDIATE), because Expo's default child connection does not inherit the main PRAGMA. `runWriteTransaction` isolates transaction lifecycle for authored SQLite cases; native initialization uses the installed SDK and closes each connection. No generic repository/state framework or native dependency was introduced.
+
+## Step 9B integration
+
+Tenancies exposes charge settings/version resolution and guarded transactional writes. Ledger consumes the applicable version and snapshots bill lines. Billing readers batch itemized rows, derive exact totals and preserve rent-specific fields for rent validation. Schema v10 appends settings and snapshot metadata without replacing old bill/line IDs. No new layer, dependency, transport or server is introduced. [Work item](work-items/additional-charges.md).
+
+## Step 10A payment integration
+
+Ledger exposes payment validation/suggestions, operation/receipt reads, atomic record/reversal and active-allocation projections. Bill records compose gross snapshots with derived paid/outstanding values, rather than mutating charge amounts. Payment writes, competing balance checks and bill void protection use the configured exclusive SQLite transaction. Schema v11 adds headers/allocations with parent keys and operation uniqueness. No event bus, backend, dependency or native package is introduced. [Work item](work-items/local-payments.md).
+
+## Step 10B live summary composition
+
+Home reads property summaries, allocation-aware Ledger bills and actual-date payment activity through public feature readers. A short configured dedicated transaction provides a consistent snapshot and writes no rows; BEGIN IMMEDIATE briefly serializes writers. Pure summary/month/search functions derive the screen model with exact safe paisa totals. No new schema, cache, editable aggregate or financial engine exists. [Work item](work-items/live-home.md).

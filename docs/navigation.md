@@ -46,3 +46,31 @@ One React Navigation bottom-tabs navigator starts at Home and renders a custom r
 ## Step 6A implementation
 
 Properties now contains HouseList → HouseDetails in a two-screen native stack. Details receives a house ID and reads its current records. House/floor forms use full-screen Modals covering the tabs, with guarded Back and keyboard-aware entry. New-house Save opens details; house edits return to their originating list/details; floor Save returns to the same house's refreshed floor list. List search/scroll survives ordinary detail navigation. Home's setup shortcut enters the same house-create flow. Unit actions show an explicit next-step message. Ledger, Tenants and the broader More workflows remain scaffolding.
+
+## Implemented Step 7 navigation
+
+Tenants now opens a real SQLite directory. Add/Edit uses one full-screen Modal over the tabs; Save awaits storage, closes and refreshes the directory, preserving search. Back prompts for dirty fields, including hidden optional details. Tenant rows offer explicit Edit; no unfinished profile/tenancy action is presented. Properties already uses HouseList → HouseDetails → FloorDetails with inherited IDs; unit forms inherit their selected floor/house.
+
+## Step 8 navigation
+
+Properties stack is HouseList → HouseDetails → FloorDetails → UnitDetails. UnitDetails takes a unit ID and reads parent context/current rental. Setup/correction use one full-screen Modal: Choose existing tenant → Terms → Review (correction skips Choose). Stage Back preserves the draft; Close or leaving the first stage confirms unsaved changes. Save closes only after SQLite success and refreshes floor occupancy/unit details without resetting list search/scroll. No new bottom destination is added.
+
+## Tenant context links from Properties
+
+Floor-unit cards and Unit details open the shared TenantForm Modal with `tenantId` and originating `selectedUnitId`. The underlying Properties route/search/scroll stays mounted. The editor reads current records, highlights that rental first and closes to its origin after Save/Back. Tenant-list Edit uses the same ID loader without a selected unit. The identity form keeps a single native Modal while loader/error/body states change. No new tab or separate tenant-profile route is added.
+
+## Step 9A bill navigation
+
+Ledger uses Bills → BillDetails. Properties adds UnitBills(tenancyId) → BillDetails(billId) from Unit details. Shared screen implementations use ID reads and preserve their originating stacks/filter state. Draft/void forms are full-screen Modals; Save closes after SQL success, refreshes affected readers and opens the saved detail. A replacement switches to its new bill ID, with the original voided version still accessible through lists. No new bottom tab is added.
+
+## Step 9B charge-settings entry
+
+Unit details retains Properties selection and opens charge history/editor in one full-screen Modal, covering tabs. Settings editor Back returns to history with dirty confirmation; history Back returns to the same unit. Tenancy setup includes optional initial charges in Terms/Review. Bill navigation/filter ownership is unchanged; drafts use existing review/details routes with itemized lines.
+
+## Step 10A payment routes
+
+Properties and Ledger register PaymentHistory(tenancyId, optional billId) and PaymentReceipt(paymentId). Unit/Bill payment actions open a full-screen Entry/Review Modal and navigate to the shared receipt only after durable save. Bill histories filter related receipts, including reversed multi-bill payments. History/receipt Back follows the original stack; bill filters and scroll remain mounted. Reversal is a focused full-screen form covering tabs. No new tab or separate financial navigation system is added.
+
+## Step 10B Home integration
+
+Home shortcuts send an explicit property/month/status request to Ledger. A new request initializes a keyed list; ordinary tab return and Bill-detail Back retain local list filters/scroll. Outstanding and overdue are all-month scopes, drafts use selected month. Home payment chooser → existing payment Modal → existing receipt Modal stays owned by Home; closing receipt returns there. Shared revisions reload Home after changes, and the payment flow remains mounted outside summary loading/error branches. More no longer receives fixture-preview controls.

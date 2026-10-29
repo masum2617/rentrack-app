@@ -137,6 +137,7 @@ export function PropertiesScreen({
               onOpen={() => onOpen(item.id)}
               floorCount={item.floorCount}
               unitCount={item.unitCount}
+              rentedUnitCount={item.rentedUnitCount}
             />
           )}
           ListEmptyComponent={

@@ -36,13 +36,15 @@ function AttentionRow({
   );
 }
 export function AttentionList({
-  readings,
+  overdue,
   drafts,
-  onPress,
+  onOverdue,
+  onDrafts,
 }: {
-  readings: number;
+  overdue: number;
   drafts: number;
-  onPress: () => void;
+  onOverdue: () => void;
+  onDrafts: () => void;
 }) {
   const { t, number } = useLocale();
   return (
@@ -52,21 +54,21 @@ export function AttentionList({
       </AppText>
       <View style={[surfaces.card, styles.group]}>
         <AttentionRow
-          icon="meter"
-          title={t('readings')}
-          detail={t(readings === 1 ? 'readingOne' : 'readingCount', {
-            count: number(readings),
+          icon="ledger"
+          title={t('homeOverdue')}
+          detail={t('homeOverdueCount', {
+            count: number(overdue),
           })}
-          onPress={onPress}
+          onPress={onOverdue}
         />
         <View style={styles.divider} />
         <AttentionRow
           icon="bill"
-          title={t('bills')}
-          detail={t(drafts === 1 ? 'draftOne' : 'draftCount', {
+          title={t('homeDrafts')}
+          detail={t('homeDraftCount', {
             count: number(drafts),
           })}
-          onPress={onPress}
+          onPress={onDrafts}
         />
       </View>
     </View>

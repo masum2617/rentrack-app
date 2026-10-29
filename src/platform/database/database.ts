@@ -1,10 +1,13 @@
 import { openDatabaseAsync, type SQLiteDatabase } from 'expo-sqlite';
 import { migrateDatabase } from './migrations';
+import { configureWriteTransactions } from './transactions';
 
 let database: Promise<SQLiteDatabase> | undefined;
 
 async function openDatabase() {
-  const db = await openDatabaseAsync('house-rent-tracker.db');
+  const db = configureWriteTransactions(
+    await openDatabaseAsync('house-rent-tracker.db'),
+  );
   try {
     await migrateDatabase(db);
     return db;

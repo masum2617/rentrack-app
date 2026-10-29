@@ -20,3 +20,8 @@ Saving protects against duplicate taps; failed local save preserves input and do
 
 Acceptance: A07–A08, A13, A18–A19, A21–A24. Verify 5,000 paid to November leaves 6,252 current plus 3,000 older = 9,252; held 20,000 remains separate. Owner/helper rights, refund/reversal, excess cash and rejected-receipt identity need applicable decisions.
 
+## Step 10A implemented local slice
+
+Entry from Unit details or Bill details opens a full-screen Entry/Review form. Required amount/date/method, optional reference/notes, visible per-line allocation fields, allocated/unallocated summaries and refresh controls reuse current tokens. Save revalidates and atomically stores all records before opening the receipt. Back retains stage input or asks before leaving changed entry. Loading/read-error/retry, no-dues, invalid fields and failed-write retention are explicit.
+
+Native history/receipt routes exist in both Properties and Ledger. Receipts show preserved identity/location/allocation snapshots, actual receipt date and separate recording timestamp. Reverse requires reason and confirmation, changes lifecycle metadata only and explains that it is not a cash refund. History includes reversed entries. PDF/sharing/prepayment and backend are deferred. [Exact rules and pending checks](../work-items/local-payments.md).

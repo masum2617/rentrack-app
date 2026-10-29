@@ -77,3 +77,13 @@ Keep custom motion brief and functional; respect reduced motion. No animated bal
 
 The theme and shared-UI owners implement these once when requested. Screen agents consume shared primitives; any necessary variation is a documented component variant, not an unrelated per-screen style.
 
+
+## Occupancy label and Edit-action refinement — 28 October 2026
+
+Show a rental's building name on its own line, with labeled Floor/Unit on a wrapping row beneath it. Use labels rather than arrow paths. Floor rental summaries show Unit followed by a separate Rented by line. Keep app-owned labels bilingual and user-entered names unchanged.
+
+Edit actions use the shared 52 × 52 rounded pencil button, a 24px icon and a contextual translated accessibility label. Descriptive form headings remain text. Tenant-name links use a compact selected-green background, 12px corner radius, horizontal padding and a minimum 48px height; the complete label is “ভাড়া আছেন: {name}” / “Rented by: {name}”. No underline is used. Long content may wrap without shrinking type or the touch target.
+
+## Step 10B live Home
+
+The existing green/white layout, scalable typography, soft groups and compact language selector are retained. Removed Home's demo badge/note and inactive meter reminder; period-specific labels, actual overdue/draft attention and real financial values take their place. Database errors use explicit error/Retry instead of zero. Native wrapping/screen-reader acceptance for the live content remains pending.

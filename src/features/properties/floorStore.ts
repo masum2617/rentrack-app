@@ -6,6 +6,25 @@ export type Floor = {
   name: string;
   floorCodeName?: string;
 };
+export type FloorSummary = Floor & {
+  unitCount: number;
+  rentedUnitCount: number;
+};
+
+export async function listFloorSummaries(
+  db: SQLiteDatabase,
+  propertyId: number,
+): Promise<FloorSummary[]> {
+  return db.getAllAsync<FloorSummary>(
+    `SELECT f.id, f.property_id AS propertyId,
+    f.name, f.floor_code_name AS floorCodeName,
+    (SELECT count(*) FROM units u WHERE u.floor_id=f.id) AS unitCount,
+    (SELECT count(*) FROM tenancies t JOIN units u ON u.id=t.unit_id
+      WHERE u.floor_id=f.id AND t.ended_on IS NULL) AS rentedUnitCount
+    FROM floors f WHERE f.property_id=? ORDER BY f.id`,
+    propertyId,
+  );
+}
 export class FloorNameError extends Error {
   readonly reason: "required" | "duplicate";
   constructor(reason: "required" | "duplicate") {
@@ -50,10 +69,13 @@ export async function getFloor(
   propertyId: number,
   id: number,
 ): Promise<Floor | undefined> {
-  return (await db.getFirstAsync<Floor>(
-    'SELECT id, property_id AS propertyId, name, floor_code_name AS floorCodeName FROM floors WHERE id = ? AND property_id = ?',
-    id, propertyId,
-  )) ?? undefined;
+  return (
+    (await db.getFirstAsync<Floor>(
+      "SELECT id, property_id AS propertyId, name, floor_code_name AS floorCodeName FROM floors WHERE id = ? AND property_id = ?",
+      id,
+      propertyId,
+    )) ?? undefined
+  );
 }
 
 export async function createFloor(

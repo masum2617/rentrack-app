@@ -19,3 +19,19 @@ Empty portfolio → Add property; empty building → Add unit; vacant unit → S
 
 Acceptance: A01, A02, A13, A16. New-device offline unavailability needs an explanation. Future reservations, overlaps, maintenance/unavailable states, and destructive property/unit lifecycle need explicit rules before those actions are added.
 
+
+## Step 8 current unit workflow
+
+The earlier units-unavailable baseline is historical. Units now have working layout forms and an ID-based details route. Floor rows show derived vacant/occupied status/current tenant; unit identity opens details while Edit remains separate. Unit details shows inherited house/floor/location, layout, optional notes and current terms or Start tenancy. It invokes the Tenancies interface and does not edit an independent occupancy flag. Financial summaries and ending/history UI remain future scope.
+
+## Occupancy summary follow-up
+
+House list summaries are one wrapping row of floor/unit/rented-unit counts. Floor cards distinguish empty-unit setup, no rented units, partial rental and full rental, with all active unit/tenant pairs displayed as information. Unit rows place the current tenant name beside occupancy status as a separate accessible link. Unit details exposes the same link. Both open the ID-based tenant editor above the existing origin, without changing rental assignments. See [work item](../work-items/occupancy-context.md) for checks and calendar-duration rules.
+
+## Current occupancy controls
+
+Floor rental pairs use separate “Unit: …” and “Rented by: …” lines. Unit tenant links are compact rounded green controls reading “ভাড়া আছেন: {name}”, without underlines. House, floor, unit and tenant Edit actions use shared contextual pencil buttons; Unit details places the rental-terms pencil beside the terms heading. Existing actions and ID-based links remain unchanged.
+
+## Step 10A Unit details
+
+Current tenancy balances use the common Ledger outstanding projection after payment allocations. Record payment is available for positive finalized dues; Payment history remains reachable at zero balance. Success/reversal increments the shared revision and refreshes mounted unit and bill views. History/receipt routes retain the originating Properties stack and IDs. [Work item](../work-items/local-payments.md).

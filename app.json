@@ -21,7 +21,8 @@
     "plugins": [
       "expo-font",
       "expo-image",
-      "expo-sqlite"
+      "expo-sqlite",
+      "@react-native-community/datetimepicker"
     ]
   }
 }

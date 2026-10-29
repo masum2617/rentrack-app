@@ -1,6 +1,6 @@
 # Incremental implementation and learning roadmap
 
-Status: Steps 1–5 implemented; Step 6A adds house details and named-floor create/edit with SQLite. The delivery log records actual verification and platform limits. Next is the unit list/form design and implementation slice. Backend connection remains deferred.
+Status: Step 8 source now adds local tenancy setup/correction and unit details/occupancy, after houses/floors/units and tenant identity. Test cases and native acceptance for recent slices remain pending. Backend remains deferred; delivery log owns observed evidence.
 
 ## Goal and scope of the first milestone
 
@@ -51,7 +51,7 @@ Do not add units, tenant links, accounting, deletion, accounts or backend/sync i
 
 ## Recommended screen and feature sequence after Home
 
-Step 6A now implements house details and named floors: [work item](work-items/local-floors.md). Floor totals are queried; units remain unavailable. Continue with the unit slice before displaying unit counts or occupancy.
+Step 6A now implements house details and named floors: [work item](work-items/local-floors.md). Floor and unit totals are queried. Unit records exist; occupancy comes from the future tenancy slice.
 
 | Order | Slice | Why it comes here |
 |---|---|---|
@@ -103,7 +103,37 @@ Read-only inspection found extra nested directories named mobile app under mobil
 
 ## Pending choices
 
-Test targets and the latest Home layout are confirmed above. Installed versions live in package.json and package-lock.json; the delivery log records actual results. House details and named-floor creation/editing are implemented. Plan the unit fields and review their rough layout next; Figma remains paused until explicitly requested.
+Test targets and the latest Home layout are confirmed above. Installed versions live in package.json and package-lock.json; the delivery log records actual results. House/floor/unit code and Step 7 tenant identity are implemented. Plan dated tenancy setup next; Figma remains paused until explicitly requested.
 
 Official build references checked 23 October 2026: [Android APKs](https://docs.expo.dev/build-reference/apk/), [local release builds](https://docs.expo.dev/guides/local-app-production/), and [internal distribution](https://docs.expo.dev/build/internal-distribution/). These establish available workflows, not a completed build in this workspace.
 
+
+## Step 7 — Local tenant identity
+
+[Work item](work-items/local-tenants.md): searchable directory and shared Add/Edit form, SQLite v7, name required and optional contact/ID details. Identity is independent of a rental unit. Test cases are prepared but were not executed during this checkpoint, following the owner's carried-forward request.
+
+Next: Step 8 Start tenancy links an existing tenant to a selected unit under dated terms. Step 9 introduces bills/dues; Step 10 introduces payments/receipts. Agree unresolved financial policies before implementing their calculations. The backend-free rental demo also needs real Home projections and an integration/device/APK checkpoint; backend and synchronization remain deferred.
+
+## Step 8 — Local tenancy terms
+
+[Work item](work-items/local-tenancies.md): Unit details → existing tenant → terms → review → local save, plus corrections and derived occupancy. No financial posting. Schema v8 and the native date-picker dependency require a full app restart/native development-client rebuild respectively. See the delivery log for permitted verification and limits. Next is Step 9 bills/dues; opening balances, partial-month policy and historical-term correction guards must be addressed before their dependent code.
+
+## Step 8 follow-up — occupancy and tenant context
+
+[Work item](work-items/occupancy-context.md): house/floor rented-unit summaries, all active tenant locations, unit-name tenant links and readonly current-rental context in the identity editor. Residence duration is calendar-derived. Source/static review completed; cases are authored, not run, and native acceptance remains pending. This does not start Step 9 or add financial records.
+
+## Step 9A — Monthly rent bills and dues
+
+[Work item](work-items/local-rent-bills.md): unit/global bills, saved drafts, review/finalize, reasoned overrides, immutable snapshots, void/reissue and finalized rent outstanding. Schema v9 and configured transaction connections preserve existing data. Source/static review is complete; tests and native acceptance remain pending. No payments/openings/additional charges were implemented. Next is 9B after agreeing its policies, then Step 10 payment allocation/receipts and real Home projections.
+
+## Step 9B — Additional charges, 29 October 2026
+
+[Work item](work-items/additional-charges.md): optional initial tenancy charges, separate effective-month settings, fixed/manual water, service/gas and one-off bill lines; shared itemized totals, source refresh and settings locks. Schema v10 preserves v9 records. Source/static review completed; regression/native acceptance pending. No payments/openings/meter calculations/backend. Review this slice before Step 10 payments, allocations and receipts.
+
+## Step 10A — Local payments/receipts, 29 October 2026
+
+[Work item](work-items/local-payments.md): actual receipt entry, editable multi-month/charge allocation, stable retry identity, in-app receipt/history and reasoned reversal. Schema v11 preserves prior records; Unit/Ledger share remaining balances and allocated bill void protection. Source/static review completed; regression/native acceptance remains pending. Review the complete House→Unit→Tenancy→Bill→Partial payment→Receipt→Remaining dues flow before choosing the next slice. Home real projections, PDF, prepayment/advance/refunds/backend remain separate work.
+
+## Step 10B — Live SQLite Home, 29 October 2026
+
+[Work item](work-items/live-home.md): real property/month choices, all-month dues, monthly gross billing and actual-date collections, current occupancy, scoped Ledger attention and Home payment/receipt flow. Demo Home fixtures and active More preview control removed. Schema remains v11 with no dependency/native rebuild. TypeScript/static review complete; regression/native acceptance remains pending. Next checkpoint: owner review and an explicitly authorized end-to-end Android/iOS/device/APK acceptance slice. Backend/sync/PDF/advance/electricity remain separate features.

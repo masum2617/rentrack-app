@@ -25,7 +25,7 @@ test('existing v3 floors rebuild with code column while preserving records and l
     const id = await createFloor(c.db, propertyId, 'Ground');
     await writeLanguage(c.db, 'en');
     await c.db.execAsync(
-      'DROP TABLE units; ALTER TABLE floors DROP COLUMN floor_code_name; PRAGMA user_version = 3',
+      'DROP TABLE payment_allocations; DROP TABLE payments; DROP TABLE tenancy_charge_versions; DROP TABLE bill_lines; DROP TABLE bills; DROP TABLE tenancies; DROP TABLE tenants; DROP TABLE units; ALTER TABLE floors DROP COLUMN floor_code_name; PRAGMA user_version = 3',
     );
     await migrateDatabase(c.db);
     await updateFloor(c.db, propertyId, id, 'Ground', ' G ');
@@ -80,7 +80,7 @@ test('v3 databases already containing the experimental column keep its values du
     );
     const retiredId = await createFloor(c.db, parent, 'Temporary');
     await c.db.runAsync('DELETE FROM floors WHERE id = ?', retiredId);
-    await c.db.execAsync('DROP TABLE units; PRAGMA user_version = 3');
+    await c.db.execAsync('DROP TABLE payment_allocations; DROP TABLE payments; DROP TABLE tenancy_charge_versions; DROP TABLE bill_lines; DROP TABLE bills; DROP TABLE tenancies; DROP TABLE tenants; DROP TABLE units; PRAGMA user_version = 3');
     await migrateDatabase(c.db);
     assert.equal((await listFloors(c.db, parent))[0].floorCodeName, 'F1');
     assert.ok(await createFloor(c.db, parent, 'Second') > retiredId);

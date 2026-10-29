@@ -2,6 +2,11 @@ import { Image } from 'expo-image';
 import { View } from 'react-native';
 
 const icons = {
+  edit: {
+    source: require('../../../assets/icons/shared/edit.svg'),
+    width: 24,
+    height: 24,
+  },
   search: {
     source: require('../../../assets/icons/properties/search.svg'),
     width: 24,

@@ -4,7 +4,7 @@ Date: 23 October 2026
 Scope: agreed first release  
 Status: consolidated discussion baseline; Warm Ledger direction approved; no application implementation
 
-This document consolidates the owner's confirmed requirements and technology decisions. Direction A, Warm Ledger, is approved, with Bangla as the default language, full English support, and straightforward use for younger adults and people aged approximately 45–70. The screen catalogue describes the existing planning inventory, not approved production layouts or a requirement for 56 separate application routes. The working design guidance is in `docs/design-system.md`, `docs/navigation.md`, and `docs/localization-accessibility.md`. The old prototype remains historical; a separate [Home-only Figma draft](design/home-review.md) is ready for color/UI review. Proposed implementation safeguards and unresolved details are identified explicitly. No production app, backend, database integration, or synchronization implementation exists yet.
+This document consolidates the owner's confirmed requirements and technology decisions. Direction A, Warm Ledger, is approved, with Bangla as the default language, full English support, and straightforward use for younger adults and people aged approximately 45–70. The screen catalogue describes the existing planning inventory, not approved production layouts or a requirement for 56 separate application routes. The working design guidance is in `docs/design-system.md`, `docs/navigation.md`, and `docs/localization-accessibility.md`. The old prototype remains historical; a separate [Home-only Figma draft](design/home-review.md) is ready for color/UI review. Proposed implementation safeguards and unresolved details are identified explicitly. A local SQLite-backed mobile client now implements setup through tenancy terms. Production readiness, backend and synchronization are not established.
 
 ## 1. Product purpose and intended audience
 
@@ -125,7 +125,7 @@ A property can contain several units; a unit has tenancy history; the same tenan
 - Include monthly rent, water, service and configurable additional recurring charges; allow one-off charges.
 - Non-electric recurring charges start with fixed amounts. Water-meter calculations were not agreed.
 - Changes to rent and charges take effect from a selected month; finalized historical bills retain the original applied values.
-- Partial-month rent uses a proposed prorated amount that the owner reviews before finalization. The exact divisor and inclusive/exclusive day convention are unresolved.
+- Step 9A partial-month rent includes the start date through month-end, divides by actual calendar days and rounds the proposal to the nearest whole taka, half upward. The owner reviews it before finalization; full months retain stored paisa precision.
 - Billing date, due date, covered month, actual payment date and sync date are different pieces of information.
 - The application must not invent a late fee, interest, escalation or automatic penalty merely because the due date passed. Such policies were not agreed.
 - Draft/review/finalize was the planned bill preparation workflow. Whether all helpers may finalize bills and how scheduled automatic generation would work remain open.
@@ -457,7 +457,7 @@ These examples illustrate agreed rules. They are not real tenant transactions or
 
 These are engineering requirements inferred from the agreed money/offline/history behavior, not additional commercial features or selected libraries:
 
-- Use exact money arithmetic and a specified rounding rule; local and server calculations must agree. The precise rounding policy remains open.
+- Use exact money arithmetic and explicit rounding rules; local and future server calculations must agree. Step 9A rent proration uses nearest whole taka, half upward; rounding for other charge types remains to be agreed.
 - Give each offline business operation a stable identity, so network retries cannot duplicate payments or charges.
 - Save the local change and its pending sync work consistently; do not report an operation as saved if it can vanish on a normal restart.
 - The server validates authorization and financial rules rather than trusting totals submitted by a client.
@@ -498,7 +498,7 @@ The principal features and stack are agreed. The following narrower rules still 
 2. Authentication method/provider, owner/helper provisioning and account recovery. Email/password in Figma is illustrative.
 3. Exact helper permissions, bill finalization rights and offline owner-approval workflow.
 4. Backup, recovery to a new phone, and protection/recovery of changes or captured files not yet synchronized.
-5. Proration divisor, date inclusivity, due dates such as the 31st in a short month, and rounding.
+5. Rounding and partial-period rules for charge types beyond Step 9A rent. Rent now uses actual calendar days, inclusive coverage and nearest whole taka, half upward; due dates clamp to the billed month's last day.
 6. Main-meter/submeter setup, changes in household associations, reading cutoffs, replacement/reset/rollover and a rate change within a consumption period.
 7. Treatment of unused electricity credit at departure; whether/how it is refunded or separately settled.
 8. Refund entries, payment reversals, finalized-bill corrections and what may be edited directly versus adjusted.
@@ -554,3 +554,37 @@ These are future acceptance criteria, not completed tests.
 - [Agent workflow](agent-workflow.md): task ownership and integration.
 
 When a decision changes, update this baseline and its affected working glossary, domain/screen/design specification, and ADR where applicable. Historical discovery and prototype records remain references, not parallel working specifications. The prototype must not override the agreed business rules.
+
+## Step 8 implementation decisions — 28 October 2026
+
+The owner approved an existing-tenant-only, terms-only local setup slice. One open tenancy per unit; a primary tenant may rent multiple units. Starts may be today/past only, not future reservations. Notice duration is whole months, independent of agreed advance. Due days allow 1–31 and fall back to the last day of a shorter month. Unbilled setup terms may be corrected while tenant/unit links stay fixed; Step 9 must guard historical terms once financial records exist. No opening dues, actual held advance, receipts or backdated bills are created by this slice. Proration, actual collection/settlement and future reservations remain unresolved/deferred.
+
+## Step 9A confirmed decisions — 28 October 2026
+
+Rent-only monthly bills are manually selected from tenancy start month through current month, with no automatic historical/future generation. First partial month includes start date through month-end on actual calendar days; its proposal rounds to nearest whole taka, half upward. Full-month rent retains paisa precision. Reviewed nonnegative amounts may differ with a required reason and preserved proposal, including historical months whose actual rate is not stored. Due day stays within the billed month, clamped to the month's last day when needed; Oct 16 start/day 10 gives an October partial bill due Oct 10. No late fees.
+
+Drafts persist and do not contribute to dues. Finalization freezes financial values; mistakes use reasoned void/reissue preserving history. Only non-void finalized charges contribute to outstanding. Zero charge is not cash paid. Setup correction is locked while finalized bills exist; voiding all allows correction while preserving old snapshots. Ledger and Unit details both provide billing access. Payments, extra charges, openings and actual advance balances remain deferred.
+
+## Step 9B confirmed decisions — 29 October 2026
+
+Water supports not applicable, fixed monthly or manual monthly amount. Service/gas support not applicable or fixed monthly amounts. Optional initial settings save atomically with tenancy creation; existing records receive no invented defaults. Unit details provides a separate settings workspace, independent of locked rental terms.
+
+Complete versions apply from an effective month until the next version; before the first version no extras apply. New months may be past/current/future but cannot precede tenancy start. Existing effective-month boundaries stay fixed in this slice. A change is blocked if any non-void finalized bill lies in its affected interval; show its month. Drafts do not block settings, but stale proposals require an explicit confirmed refresh and saved review before finalization.
+
+Fixed amounts populate drafts without automatic proration and may be reviewed differently with a reason. Manual water requires an explicit amount, including zero; meter reading/division remains external. Named one-off extras apply only to their bill. All amounts are nonnegative exact paisa; totals must remain safe. Only rent is prorated automatically. All lines share the bill due date. Bills retain category/name/source/proposal/review/reason snapshots; finalized/voided history never changes with settings.
+
+Unit/portfolio outstanding includes all finalized non-void charge lines. No payments, meters, water splitting, electricity, opening balances or backend are added. [Owning work item](work-items/additional-charges.md).
+
+## Step 10A confirmed local payment decisions — 29 October 2026
+
+Received money is recorded for one tenancy with positive exact amount, actual date today/earlier (including before start), required cash/bank/mobile-wallet method and optional reference/notes. Amount and method initially have no invented default. Allocate the full amount to selected finalized non-void charge lines; suggestions use oldest month then rent first, while bill entry prioritizes its bill. Owner-selected later months/charge items may leave older dues. Block excess/unallocated cash in this slice; prepayment is deferred.
+
+Persist payment and allocations atomically with current balance/tenancy validation and stable operation retry identity. Receipts/history are in-app only and snapshot person/location, amounts, allocation labels and timestamps. Correct an erroneous record through confirmed reasoned reversal, preserving original financial data; this is not a cash refund. Reverse restores all its allocations. Allocated bills cannot be voided until affected payments are reversed.
+
+Derive all screen balances from finalized non-void lines minus recorded allocations. Unpaid/partly paid/settled state is distinct from overdue; only positive remaining balance can be overdue. Zero-charge final bills imply no receipt. No advance application, refunds, waivers, PDF/sharing, backend or real Home totals in this slice. [Owning work item](work-items/local-payments.md).
+
+## Step 10B live Home decisions — 29 October 2026
+
+Home now reads real SQLite records. Selected property scopes all figures/actions. Outstanding is allocation-aware finalized non-void dues across all months. Billed is gross finalized non-void charges for the selected billing month. Received is recorded non-reversed money by actual receipt date within that calendar month, independently of allocation month. These measures need not reconcile as one equation. Occupancy is current, not a reconstruction for the selected billing month.
+
+Record payment selects a scoped tenancy with positive all-month dues before reusing the common payment/receipt flow. Outstanding and overdue shortcuts use all months; drafts use selected month. Property/month options come from stored records and calendar gaps through current month. Real empty/zero/read-failure states are distinct. Old fictional Home figures and More preview switching no longer drive the app. [Work item](work-items/live-home.md).

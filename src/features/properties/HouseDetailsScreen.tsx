@@ -17,13 +17,27 @@ import { PrimaryButton } from '../../shared/ui/PrimaryButton';
 import { colors } from '../../theme/colors';
 import { surfaces } from '../../theme/surfaces';
 import { getProperty, type Property } from './propertyStore';
-import { listFloors, type Floor } from './floorStore';
+import {
+  listFloorSummaries,
+  type Floor,
+  type FloorSummary,
+} from './floorStore';
 import { PropertyRow } from './PropertyRow';
 import { FloorRow } from './FloorRow';
 
+import {
+  listActiveRentals,
+  type ActiveRental,
+} from '../tenancies/tenancyStore';
+
 type State =
   | { status: 'loading' | 'error' | 'missing' }
-  | { status: 'ready'; property: Property; floors: Floor[] };
+  | {
+      status: 'ready';
+      property: Property;
+      floors: FloorSummary[];
+      rentals: ActiveRental[];
+    };
 export function HouseDetailsScreen({
   propertyId,
   revision,
@@ -53,14 +67,15 @@ export function HouseDetailsScreen({
     async function load() {
       try {
         const db = await getDatabase();
-        const [property, floors] = await Promise.all([
+        const [property, floors, rentals] = await Promise.all([
           getProperty(db, propertyId),
-          listFloors(db, propertyId),
+          listFloorSummaries(db, propertyId),
+          listActiveRentals(db, { propertyId }),
         ]);
         if (active)
           setState(
             property
-              ? { status: 'ready', property, floors }
+              ? { status: 'ready', property, floors, rentals }
               : { status: 'missing' },
           );
       } catch {
@@ -109,6 +124,9 @@ export function HouseDetailsScreen({
           renderItem={({ item }) => (
             <FloorRow
               floor={item}
+              rentals={state.rentals.filter(
+                (rental) => rental.floorId === item.id,
+              )}
               onEdit={(floor) => onEditFloor(state.property, floor)}
               onOpen={() => onOpenFloor(item.id)}
             />

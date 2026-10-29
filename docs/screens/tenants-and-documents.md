@@ -18,3 +18,17 @@ New capture is retained until upload acknowledgment. Failed uploads retain a ret
 
 Acceptance: A02, A15, A16, A20–A24 as applicable. File formats/limits, retention/deletion, local cleanup/protection and restore remain open. Tenant identity is not a signed-in helper account.
 
+
+## Step 7 implemented subset
+
+The current directory searches name, phone and address; phone digits can be searched in either script. Each row shows name, phone or missing-phone text, optional address and explicit Edit. Only name is required in the shared Add/Edit form. Phone/address are shown immediately; ID type/number, emergency contact and notes are behind a labeled expandable control. Existing extra values expand on Edit; collapsing never removes draft values. Empty, no-match, loading, retry, inline required-name and retained-input save-error states are implemented. No fake unit or current/past status is shown before tenancy records exist.
+
+Tenant profile, rental association/search by unit, document capture/view, tenancy history and finance summaries above remain future scope. ID numbers are not shown/searched in directory rows. Optional identity values currently use ordinary local SQLite storage; protected storage/access is not claimed.
+
+## Occupancy follow-up implemented subset
+
+Directory rows now show all active building → floor → unit locations. Shared Add/Edit remains one identity form; Edit loads current identity and active rentals by ID. A Current tenancies section above editable fields shows readonly location, start month/year and completed years/months of residence. Tenants with no active rental have explicit feedback. Opening from a unit prioritizes and marks that rental; all other current rentals are included. Save/Back/retained-input errors remain consistent. A separate read-only profile was not added. Full financial history/documents remain future work.
+
+## Current rental-label presentation
+
+Active rental locations in tenant rows and the readonly form section now show building on its own line, then labeled Floor/Unit together with natural wrapping. Start month and elapsed residence remain below in the form section. Tenant-row Edit is a pencil icon with a contextual accessibility label; identity/save behavior is unchanged.

@@ -29,12 +29,12 @@ test('version 2 upgrade preserves houses, IDs and language, and enables foreign 
     await migrateDatabase(c.db);
     const id = await createProperty(c.db, house);
     await writeLanguage(c.db, 'en');
-    await c.db.execAsync('DROP TABLE units; DROP TABLE floors; PRAGMA user_version = 2');
+    await c.db.execAsync('DROP TABLE payment_allocations; DROP TABLE payments; DROP TABLE tenancy_charge_versions; DROP TABLE bill_lines; DROP TABLE bills; DROP TABLE tenancies; DROP TABLE tenants; DROP TABLE units; DROP TABLE floors; PRAGMA user_version = 2');
     await migrateDatabase(c.db);
     await migrateDatabase(c.db);
     assert.equal(
       (await c.db.getFirstAsync('PRAGMA user_version')).user_version,
-      6,
+      11,
     );
     assert.equal(
       (await c.db.getFirstAsync('PRAGMA foreign_keys')).foreign_keys,
